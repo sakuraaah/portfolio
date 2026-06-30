@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 
+import { useTranslation } from 'react-i18next';
 import { Link, Outlet, Route, Routes, useLocation } from 'react-router-dom';
 
-import './App.css';
+import { I18nNamespace } from '@/shared/i18n';
 
-type ThemePreference = 'light' | 'dark' | 'system';
-type ResolvedTheme = 'light' | 'dark';
+import './App.css';
+import { AppProvider } from './providers';
 
 type Project = {
   title: string;
@@ -46,78 +47,25 @@ const featuredProject: Project = {
   ],
 };
 
-const themePreferenceOrder: ThemePreference[] = ['light', 'dark', 'system'];
-
-const themePreferenceLabels: Record<ThemePreference, string> = {
-  light: 'Light',
-  dark: 'Dark',
-  system: 'Auto',
-};
-
-const themePreferenceIcons: Record<ThemePreference, string> = {
-  light: '☀',
-  dark: '☾',
-  system: '◐',
-};
-
-function getSystemTheme(): ResolvedTheme {
-  if (typeof window === 'undefined') return 'light';
-
-  return window.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light';
-}
-
-function getStoredThemePreference(): ThemePreference {
-  if (typeof window === 'undefined') return 'system';
-
-  const stored = localStorage.getItem('pf-theme');
-
-  return stored === 'light' || stored === 'dark' || stored === 'system'
-    ? stored
-    : 'system';
-}
-
 function App() {
   return (
-    <Routes>
-      <Route element={<SiteShell />}>
-        <Route index element={<HomePage />} />
-        <Route
-          path="project"
-          element={<ProjectPage project={featuredProject} />}
-        />
-      </Route>
-    </Routes>
+    <AppProvider>
+      <Routes>
+        <Route element={<SiteShell />}>
+          <Route index element={<HomePage />} />
+          <Route
+            path="project"
+            element={<ProjectPage project={featuredProject} />}
+          />
+        </Route>
+      </Routes>
+    </AppProvider>
   );
 }
 
 function SiteShell() {
-  const [themePreference, setThemePreference] = useState<ThemePreference>(
-    getStoredThemePreference
-  );
-  const [systemTheme, setSystemTheme] = useState<ResolvedTheme>(getSystemTheme);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const theme: ResolvedTheme =
-    themePreference === 'system' ? systemTheme : themePreference;
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme;
-    document.documentElement.dataset.themepref = themePreference;
-    localStorage.setItem('pf-theme', themePreference);
-  }, [theme, themePreference]);
-
-  useEffect(() => {
-    const media = window.matchMedia('(prefers-color-scheme: dark)');
-    const updateSystemTheme = () =>
-      setSystemTheme(media.matches ? 'dark' : 'light');
-
-    updateSystemTheme();
-    media.addEventListener('change', updateSystemTheme);
-
-    return () => media.removeEventListener('change', updateSystemTheme);
-  }, []);
 
   useEffect(() => {
     if (!isMenuOpen) {
@@ -187,30 +135,11 @@ function SiteShell() {
     window.scrollTo({ top: 0 });
   }, [location.pathname, location.hash]);
 
-  const cycleTheme = () => {
-    const nextIndex =
-      (themePreferenceOrder.indexOf(themePreference) + 1) %
-      themePreferenceOrder.length;
-
-    setThemePreference(themePreferenceOrder[nextIndex]);
-  };
-
-  const chooseTheme = (preference: ThemePreference) => {
-    setThemePreference(preference);
-  };
-
   return (
     <div className="site">
-      <Header
-        menuOpen={isMenuOpen}
-        themePreference={themePreference}
-        onCycleTheme={cycleTheme}
-        onOpenMenu={() => setIsMenuOpen(true)}
-      />
+      <Header menuOpen={isMenuOpen} onOpenMenu={() => setIsMenuOpen(true)} />
       <MobileDrawer
         menuOpen={isMenuOpen}
-        themePreference={themePreference}
-        onChooseTheme={chooseTheme}
         onClose={() => setIsMenuOpen(false)}
       />
       <Outlet />
@@ -221,16 +150,14 @@ function SiteShell() {
 
 function Header({
   menuOpen,
-  themePreference,
-  onCycleTheme,
   onOpenMenu,
 }: {
   menuOpen: boolean;
-  themePreference: ThemePreference;
-  onCycleTheme: () => void;
   onOpenMenu: () => void;
 }) {
-  const themeLabel = themePreferenceLabels[themePreference];
+  const { cycleTheme, preference } = useTheme();
+  const { t } = useTranslation(I18nNamespace.Common);
+  const themeLabel = t(THEME_PREFERENCE_LABEL_KEYS[preference]);
 
   return (
     <header className="site-header">
@@ -253,11 +180,9 @@ function Header({
             className="theme-pill"
             title={`Theme: ${themeLabel}. Click to change`}
             type="button"
-            onClick={onCycleTheme}
+            onClick={cycleTheme}
           >
-            <span aria-hidden="true">
-              {themePreferenceIcons[themePreference]}
-            </span>
+            <span aria-hidden="true">{THEME_PREFERENCE_ICONS[preference]}</span>
             <span>{themeLabel}</span>
           </button>
         </nav>
@@ -278,16 +203,14 @@ function Header({
 
 function MobileDrawer({
   menuOpen,
-  themePreference,
-  onChooseTheme,
   onClose,
 }: {
   menuOpen: boolean;
-  themePreference: ThemePreference;
-  onChooseTheme: (preference: ThemePreference) => void;
   onClose: () => void;
 }) {
-  const themeLabel = themePreferenceLabels[themePreference];
+  const { preference: themePreference, setPreference } = useTheme();
+  const { t } = useTranslation(I18nNamespace.Common);
+  const themeLabel = t(THEME_PREFERENCE_LABEL_KEYS[themePreference]);
 
   return (
     <>
@@ -341,16 +264,16 @@ function MobileDrawer({
             <strong>{themeLabel}</strong>
           </div>
           <div className="theme-dot-group" role="group" aria-label="Theme">
-            {themePreferenceOrder.map((preference) => (
+            {THEME_PREFERENCES.map((preference) => (
               <button
-                aria-label={`${themePreferenceLabels[preference]} theme`}
+                aria-label={`${t(THEME_PREFERENCE_LABEL_KEYS[preference])} theme`}
                 className="theme-dot"
                 data-val={preference}
                 key={preference}
                 type="button"
-                onClick={() => onChooseTheme(preference)}
+                onClick={() => setPreference(preference)}
               >
-                {themePreferenceIcons[preference]}
+                {THEME_PREFERENCE_ICONS[preference]}
               </button>
             ))}
           </div>
