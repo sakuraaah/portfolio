@@ -473,8 +473,11 @@ html[data-themepref='system'] .theme-dot[data-val='system'] {
   overflow: hidden;
   border: 1px solid var(--border);
   border-radius: 8px;
-  background:
-    linear-gradient(135deg, color-mix(in oklab, var(--accent-subtle) 64%, var(--surface)) 0%, var(--surface-2) 100%);
+  background: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--accent-subtle) 64%, var(--surface)) 0%,
+    var(--surface-2) 100%
+  );
   box-shadow: var(--sh-md);
 }
 
