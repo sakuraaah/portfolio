@@ -1,0 +1,10 @@
+node_modules
+dist
+dist-ssr
+.npm-cache
+.git
+.agents
+*.log
+Dockerfile*
+docker-compose*.yml
+docker-compose*.yaml
