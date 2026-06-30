@@ -1,111 +1,97 @@
+@import url('https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,16..72,300;0,16..72,400;0,16..72,500;1,16..72,300;1,16..72,400&display=swap');
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 :root {
-  --text: #6b6375;
-  --text-h: #08060d;
-  --bg: #fff;
-  --border: #e5e4e7;
-  --code-bg: #f4f3ec;
-  --accent: #aa3bff;
-  --accent-bg: rgba(170, 59, 255, 0.1);
-  --accent-border: rgba(170, 59, 255, 0.5);
-  --social-bg: rgba(244, 243, 236, 0.5);
-  --shadow:
-    rgba(0, 0, 0, 0.1) 0 10px 15px -3px, rgba(0, 0, 0, 0.05) 0 4px 6px -2px;
-
-  --sans: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --heading: system-ui, 'Segoe UI', Roboto, sans-serif;
-  --mono: ui-monospace, Consolas, monospace;
-
-  font: 18px/145% var(--sans);
-  letter-spacing: 0.18px;
-  color-scheme: light dark;
+  --bg: oklch(0.987 0.005 85);
+  --surface: oklch(0.999 0.002 85);
+  --surface-2: oklch(0.965 0.006 85);
+  --border: oklch(0.9 0.006 80);
+  --border-strong: oklch(0.82 0.008 80);
+  --text: oklch(0.23 0.008 65);
+  --text-2: oklch(0.46 0.01 68);
+  --text-3: oklch(0.62 0.01 72);
+  --accent: oklch(0.46 0.072 158);
+  --accent-hover: oklch(0.4 0.072 158);
+  --accent-contrast: #fff;
+  --accent-subtle: oklch(0.95 0.022 150);
+  --accent-border: oklch(0.86 0.04 155);
+  --sh-sm: 0 1px 3px rgba(40, 38, 30, 0.07), 0 1px 2px rgba(40, 38, 30, 0.04);
+  --sh-md: 0 6px 20px rgba(40, 38, 30, 0.08);
+  --sh-lg: 0 22px 50px rgba(40, 38, 30, 0.14), 0 6px 14px rgba(40, 38, 30, 0.06);
+  --sans: 'Hanken Grotesk', system-ui, sans-serif;
+  --serif: 'Newsreader', Georgia, serif;
+  font-family: var(--sans);
   color: var(--text);
   background: var(--bg);
+  color-scheme: light;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-
-  @media (max-width: 1024px) {
-    font-size: 16px;
-  }
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --text: #9ca3af;
-    --text-h: #f3f4f6;
-    --bg: #16171d;
-    --border: #2e303a;
-    --code-bg: #1f2028;
-    --accent: #c084fc;
-    --accent-bg: rgba(192, 132, 252, 0.15);
-    --accent-border: rgba(192, 132, 252, 0.5);
-    --social-bg: rgba(47, 48, 58, 0.5);
-    --shadow:
-      rgba(0, 0, 0, 0.4) 0 10px 15px -3px, rgba(0, 0, 0, 0.25) 0 4px 6px -2px;
-  }
-
-  #social .button-icon {
-    filter: invert(1) brightness(2);
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
-#root {
-  width: 1126px;
-  max-width: 100%;
-  margin: 0 auto;
-  text-align: center;
-  border-inline: 1px solid var(--border);
-  min-height: 100svh;
-  display: flex;
-  flex-direction: column;
-  box-sizing: border-box;
+html[data-theme='dark'] {
+  --bg: oklch(0.16 0.006 80);
+  --surface: oklch(0.2 0.007 80);
+  --surface-2: oklch(0.235 0.008 80);
+  --border: oklch(0.29 0.008 80);
+  --border-strong: oklch(0.37 0.01 80);
+  --text: oklch(0.94 0.005 85);
+  --text-2: oklch(0.72 0.008 80);
+  --text-3: oklch(0.56 0.008 80);
+  --accent: oklch(0.74 0.1 160);
+  --accent-hover: oklch(0.8 0.1 160);
+  --accent-contrast: oklch(0.16 0.02 160);
+  --accent-subtle: oklch(0.27 0.04 158);
+  --accent-border: oklch(0.38 0.05 158);
+  --sh-sm: 0 1px 3px rgba(0, 0, 0, 0.5);
+  --sh-md: 0 6px 20px rgba(0, 0, 0, 0.5);
+  --sh-lg: 0 24px 54px rgba(0, 0, 0, 0.6);
+  color-scheme: dark;
 }
 
 body {
+  min-width: 320px;
+  min-height: 100vh;
   margin: 0;
+  background: var(--bg);
 }
 
-h1,
-h2 {
-  font-family: var(--heading);
-  font-weight: 500;
-  color: var(--text-h);
+button,
+input,
+textarea,
+select {
+  font: inherit;
 }
 
-h1 {
-  font-size: 56px;
-  letter-spacing: -1.68px;
-  margin: 32px 0;
-  @media (max-width: 1024px) {
-    font-size: 36px;
-    margin: 20px 0;
-  }
-}
-h2 {
-  font-size: 24px;
-  line-height: 118%;
-  letter-spacing: -0.24px;
-  margin: 0 0 8px;
-  @media (max-width: 1024px) {
-    font-size: 20px;
-  }
-}
-p {
-  margin: 0;
+button {
+  padding: 0;
 }
 
-code,
-.counter {
-  font-family: var(--mono);
-  display: inline-flex;
-  border-radius: 4px;
-  color: var(--text-h);
+a {
+  color: inherit;
 }
 
-code {
-  font-size: 15px;
-  line-height: 135%;
-  padding: 4px 8px;
-  background: var(--code-bg);
+img,
+svg {
+  display: block;
+}
+
+::selection {
+  background: var(--accent-subtle);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
 }
