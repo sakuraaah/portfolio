@@ -1,0 +1,25 @@
+/** @type {import('prettier').Config} */
+export default {
+  semi: true,
+  tabWidth: 2,
+  printWidth: 80,
+  singleQuote: true,
+  trailingComma: 'es5',
+  endOfLine: 'lf',
+  plugins: ['@trivago/prettier-plugin-sort-imports'],
+  importOrder: [
+    '^react$',
+    '^react-dom(/.*)?$',
+    '<THIRD_PARTY_MODULES>',
+    '^@/app(/.*)?$',
+    '^@/pages(/.*)?$',
+    '^@/features(/.*)?$',
+    '^@/entities(/.*)?$',
+    '^@/shared(/.*)?$',
+    '^@/assets(/.*)?$',
+    '^@/(.*)$',
+    '^[./]',
+  ],
+  importOrderSeparation: true,
+  importOrderSortSpecifiers: true,
+};
