@@ -2,6 +2,9 @@ import { useEffect, useState } from 'react'
 import { Link, Outlet, Route, Routes, useLocation } from 'react-router-dom'
 import './App.css'
 
+type ThemePreference = 'light' | 'dark' | 'system'
+type ResolvedTheme = 'light' | 'dark'
+
 type Project = {
   title: string
   year: string
@@ -41,6 +44,34 @@ const featuredProject: Project = {
   ],
 }
 
+const themePreferenceOrder: ThemePreference[] = ['light', 'dark', 'system']
+
+const themePreferenceLabels: Record<ThemePreference, string> = {
+  light: 'Light',
+  dark: 'Dark',
+  system: 'Auto',
+}
+
+const themePreferenceIcons: Record<ThemePreference, string> = {
+  light: '☀',
+  dark: '☾',
+  system: '◐',
+}
+
+function getSystemTheme(): ResolvedTheme {
+  if (typeof window === 'undefined') return 'light'
+
+  return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+}
+
+function getStoredThemePreference(): ThemePreference {
+  if (typeof window === 'undefined') return 'system'
+
+  const stored = localStorage.getItem('pf-theme')
+
+  return stored === 'light' || stored === 'dark' || stored === 'system' ? stored : 'system'
+}
+
 function App() {
   return (
     <Routes>
@@ -53,17 +84,50 @@ function App() {
 }
 
 function SiteShell() {
-  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
-    if (typeof window === 'undefined') return 'light'
-
-    return localStorage.getItem('pf-theme') === 'dark' ? 'dark' : 'light'
-  })
+  const [themePreference, setThemePreference] = useState<ThemePreference>(getStoredThemePreference)
+  const [systemTheme, setSystemTheme] = useState<ResolvedTheme>(getSystemTheme)
+  const [isMenuOpen, setIsMenuOpen] = useState(false)
   const location = useLocation()
+  const theme: ResolvedTheme = themePreference === 'system' ? systemTheme : themePreference
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
-    localStorage.setItem('pf-theme', theme)
-  }, [theme])
+    document.documentElement.dataset.themepref = themePreference
+    localStorage.setItem('pf-theme', themePreference)
+  }, [theme, themePreference])
+
+  useEffect(() => {
+    const media = window.matchMedia('(prefers-color-scheme: dark)')
+    const updateSystemTheme = () => setSystemTheme(media.matches ? 'dark' : 'light')
+
+    updateSystemTheme()
+    media.addEventListener('change', updateSystemTheme)
+
+    return () => media.removeEventListener('change', updateSystemTheme)
+  }, [])
+
+  useEffect(() => {
+    if (!isMenuOpen) {
+      delete document.documentElement.dataset.menu
+      document.body.style.overflow = ''
+      return
+    }
+
+    document.documentElement.dataset.menu = 'open'
+    document.body.style.overflow = 'hidden'
+
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setIsMenuOpen(false)
+    }
+
+    document.addEventListener('keydown', closeOnEscape)
+
+    return () => {
+      document.removeEventListener('keydown', closeOnEscape)
+      delete document.documentElement.dataset.menu
+      document.body.style.overflow = ''
+    }
+  }, [isMenuOpen])
 
   useEffect(() => {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
@@ -106,15 +170,30 @@ function SiteShell() {
     window.scrollTo({ top: 0 })
   }, [location.pathname, location.hash])
 
-  const toggleTheme = () => {
-    const next = theme === 'dark' ? 'light' : 'dark'
+  const cycleTheme = () => {
+    const nextIndex = (themePreferenceOrder.indexOf(themePreference) + 1) % themePreferenceOrder.length
 
-    setTheme(next)
+    setThemePreference(themePreferenceOrder[nextIndex])
+  }
+
+  const chooseTheme = (preference: ThemePreference) => {
+    setThemePreference(preference)
   }
 
   return (
     <div className="site">
-      <Header theme={theme} onToggleTheme={toggleTheme} />
+      <Header
+        menuOpen={isMenuOpen}
+        themePreference={themePreference}
+        onCycleTheme={cycleTheme}
+        onOpenMenu={() => setIsMenuOpen(true)}
+      />
+      <MobileDrawer
+        menuOpen={isMenuOpen}
+        themePreference={themePreference}
+        onChooseTheme={chooseTheme}
+        onClose={() => setIsMenuOpen(false)}
+      />
       <Outlet />
       <Footer />
     </div>
@@ -122,12 +201,18 @@ function SiteShell() {
 }
 
 function Header({
-  theme,
-  onToggleTheme,
+  menuOpen,
+  themePreference,
+  onCycleTheme,
+  onOpenMenu,
 }: {
-  theme: 'light' | 'dark'
-  onToggleTheme: () => void
+  menuOpen: boolean
+  themePreference: ThemePreference
+  onCycleTheme: () => void
+  onOpenMenu: () => void
 }) {
+  const themeLabel = themePreferenceLabels[themePreference]
+
   return (
     <header className="site-header">
       <div className="wrap header-inner">
@@ -144,32 +229,108 @@ function Header({
           <a className="navlink" href="/#contact">
             Contact
           </a>
-          <ThemeButton theme={theme} onToggleTheme={onToggleTheme} />
+          <button
+            aria-label={`Theme: ${themeLabel}. Click to change`}
+            className="theme-pill"
+            title={`Theme: ${themeLabel}. Click to change`}
+            type="button"
+            onClick={onCycleTheme}
+          >
+            <span aria-hidden="true">{themePreferenceIcons[themePreference]}</span>
+            <span>{themeLabel}</span>
+          </button>
         </nav>
-        <ThemeButton theme={theme} onToggleTheme={onToggleTheme} compact />
+        <button
+          aria-controls="mobile-drawer"
+          aria-expanded={menuOpen}
+          aria-label="Open menu"
+          className="menu-button ghost"
+          type="button"
+          onClick={onOpenMenu}
+        >
+          <MenuIcon />
+        </button>
       </div>
     </header>
   )
 }
 
-function ThemeButton({
-  theme,
-  compact = false,
-  onToggleTheme,
+function MobileDrawer({
+  menuOpen,
+  themePreference,
+  onChooseTheme,
+  onClose,
 }: {
-  theme: 'light' | 'dark'
-  compact?: boolean
-  onToggleTheme: () => void
+  menuOpen: boolean
+  themePreference: ThemePreference
+  onChooseTheme: (preference: ThemePreference) => void
+  onClose: () => void
 }) {
+  const themeLabel = themePreferenceLabels[themePreference]
+
   return (
-    <button
-      aria-label="Toggle theme"
-      className={compact ? 'theme-button theme-button-mobile ghost' : 'theme-button ghost'}
-      type="button"
-      onClick={onToggleTheme}
-    >
-      {theme === 'dark' ? <SunIcon /> : <MoonIcon />}
-    </button>
+    <>
+      <button
+        aria-hidden={!menuOpen}
+        className="drawer-overlay"
+        tabIndex={menuOpen ? 0 : -1}
+        type="button"
+        onClick={onClose}
+      />
+      <aside
+        aria-hidden={!menuOpen}
+        aria-label="Mobile navigation"
+        className="drawer-panel"
+        id="mobile-drawer"
+      >
+        <div className="drawer-header">
+          <span className="drawer-brand">{profile.name}</span>
+          <button aria-label="Close menu" className="drawer-close ghost" type="button" onClick={onClose}>
+            <CloseIcon />
+          </button>
+        </div>
+        <nav className="drawer-links" aria-label="Mobile navigation">
+          <a className="drawer-link" href="/#work" onClick={onClose}>
+            Work
+            <span className="cta-arrow" aria-hidden="true">
+              -&gt;
+            </span>
+          </a>
+          <a className="drawer-link" href="/#about" onClick={onClose}>
+            About
+            <span className="cta-arrow" aria-hidden="true">
+              -&gt;
+            </span>
+          </a>
+          <a className="drawer-link" href="/#contact" onClick={onClose}>
+            Contact
+            <span className="cta-arrow" aria-hidden="true">
+              -&gt;
+            </span>
+          </a>
+        </nav>
+        <div className="drawer-footer">
+          <div className="drawer-appearance">
+            <span>Appearance</span>
+            <strong>{themeLabel}</strong>
+          </div>
+          <div className="theme-dot-group" role="group" aria-label="Theme">
+            {themePreferenceOrder.map((preference) => (
+              <button
+                aria-label={`${themePreferenceLabels[preference]} theme`}
+                className="theme-dot"
+                data-val={preference}
+                key={preference}
+                type="button"
+                onClick={() => onChooseTheme(preference)}
+              >
+                {themePreferenceIcons[preference]}
+              </button>
+            ))}
+          </div>
+        </div>
+      </aside>
+    </>
   )
 }
 
@@ -552,29 +713,18 @@ function XIcon() {
   )
 }
 
-function SunIcon() {
+function MenuIcon() {
   return (
     <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
-      <circle cx="12" cy="12" r="4" stroke="currentColor" strokeWidth="1.8" />
-      <path
-        d="M12 2.5v2.2M12 19.3v2.2M4.7 4.7l1.55 1.55M17.75 17.75l1.55 1.55M2.5 12h2.2M19.3 12h2.2M4.7 19.3l1.55-1.55M17.75 6.25l1.55-1.55"
-        stroke="currentColor"
-        strokeLinecap="round"
-        strokeWidth="1.8"
-      />
+      <path d="M3 7h18M3 13h18M3 19h18" stroke="currentColor" strokeLinecap="round" strokeWidth="1.7" />
     </svg>
   )
 }
 
-function MoonIcon() {
+function CloseIcon() {
   return (
-    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
-      <path
-        d="M20.1 14.4A7.7 7.7 0 0 1 9.6 3.9 8.45 8.45 0 1 0 20.1 14.4Z"
-        stroke="currentColor"
-        strokeLinejoin="round"
-        strokeWidth="1.8"
-      />
+    <svg viewBox="0 0 24 24" width="17" height="17" fill="none" aria-hidden="true">
+      <path d="m5 5 14 14M19 5 5 19" stroke="currentColor" strokeLinecap="round" strokeWidth="1.8" />
     </svg>
   )
 }

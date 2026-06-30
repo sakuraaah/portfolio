@@ -89,19 +89,213 @@
   border-color: var(--accent);
 }
 
-.theme-button {
+.theme-pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 38px;
+  gap: 8px;
   height: 38px;
+  padding: 0 15px 0 13px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: var(--text-2);
+  background: transparent;
+  cursor: pointer;
+  font-size: 13.5px;
+  font-weight: 500;
+  transition:
+    border-color 250ms ease,
+    color 250ms ease;
+}
+
+.theme-pill:hover,
+.theme-pill:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent);
+}
+
+.theme-pill span:first-child {
+  font-size: 15px;
+  line-height: 1;
+}
+
+.menu-button,
+.drawer-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
   border-radius: 50%;
 }
 
-.theme-button-mobile {
+.menu-button {
   display: none;
+}
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  border: 0;
+  background: color-mix(in oklab, var(--text) 38%, transparent);
+  opacity: 0;
+  pointer-events: none;
+  cursor: pointer;
+  backdrop-filter: blur(2px);
+  transition: opacity 350ms ease;
+}
+
+.drawer-panel {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 201;
+  display: flex;
+  flex-direction: column;
+  width: min(82vw, 310px);
+  border-left: 1px solid var(--border);
+  background: var(--surface);
+  box-shadow: var(--sh-lg);
+  visibility: hidden;
+  transform: translateX(105%);
+  transition:
+    transform 420ms cubic-bezier(0.2, 0.65, 0.25, 1),
+    visibility 420ms;
+}
+
+html[data-menu='open'] .drawer-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+html[data-menu='open'] .drawer-panel {
+  visibility: visible;
+  transform: none;
+}
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 21px 22px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.drawer-brand {
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 19px;
+  font-weight: 500;
+}
+
+.drawer-close {
   width: 40px;
   height: 40px;
+}
+
+.drawer-links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 10px;
+}
+
+.drawer-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 16px;
+  border-radius: 8px;
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 23px;
+  text-decoration: none;
+  transition:
+    background 200ms ease,
+    color 200ms ease;
+}
+
+.drawer-link:hover,
+.drawer-link:focus-visible {
+  color: var(--accent);
+  background: var(--surface-2);
+}
+
+.drawer-link .cta-arrow {
+  color: var(--text-3);
+}
+
+.drawer-footer {
+  padding: 22px 22px 26px;
+  margin-top: auto;
+  border-top: 1px solid var(--border);
+}
+
+.drawer-appearance {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.drawer-appearance span {
+  color: var(--text-2);
+  font-size: 14.5px;
+  font-weight: 500;
+}
+
+.drawer-appearance strong {
+  color: var(--accent);
+  font-family: var(--serif);
+  font-size: 16px;
+  font-style: italic;
+  font-weight: 400;
+}
+
+.theme-dot-group {
+  display: flex;
+  gap: 14px;
+}
+
+.theme-dot {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid var(--border);
+  border-radius: 50%;
+  color: var(--text-2);
+  background: transparent;
+  cursor: pointer;
+  font-size: 17px;
+  line-height: 1;
+  transition:
+    transform 300ms cubic-bezier(0.2, 0.65, 0.25, 1),
+    background 250ms ease,
+    border-color 250ms ease,
+    color 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.theme-dot:hover,
+.theme-dot:focus-visible {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+html[data-themepref='light'] .theme-dot[data-val='light'],
+html[data-themepref='dark'] .theme-dot[data-val='dark'],
+html[data-themepref='system'] .theme-dot[data-val='system'] {
+  color: var(--accent-contrast);
+  border-color: var(--accent);
+  background: var(--accent);
+  box-shadow: var(--sh-md);
 }
 
 .hero-section {
@@ -884,7 +1078,7 @@
     display: none;
   }
 
-  .theme-button-mobile {
+  .menu-button {
     display: inline-flex;
   }
 
