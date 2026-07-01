@@ -1,5 +1,5 @@
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
-import { motion, type HTMLMotionProps } from 'motion/react';
+import { type HTMLMotionProps, motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 
@@ -418,8 +418,7 @@ export const Feature = styled(motion.article).attrs(revealHoverMotionProps)`
   border-radius: 8px;
   background: var(--surface);
   box-shadow: var(--sh-md);
-  transition:
-    box-shadow 400ms cubic-bezier(0.2, 0.65, 0.25, 1);
+  transition: box-shadow 400ms cubic-bezier(0.2, 0.65, 0.25, 1);
 
   &:hover {
     box-shadow: var(--sh-lg);

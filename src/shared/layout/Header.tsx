@@ -1,8 +1,8 @@
 import { IconMenu2 } from '@tabler/icons-react';
 import { useTranslation } from 'react-i18next';
 
+import { SITE_NAV_LINKS } from '@/shared/constants';
 import { I18nNamespace } from '@/shared/i18n';
-import { SITE_NAV_LINKS } from '@/shared/layout/constants';
 import {
   THEME_PREFERENCE_ICONS,
   THEME_PREFERENCE_LABEL_KEYS,
