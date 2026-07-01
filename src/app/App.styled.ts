@@ -1,4 +1,5 @@
 import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
+import { motion, type HTMLMotionProps } from 'motion/react';
 import { Link } from 'react-router-dom';
 import styled, { css, keyframes } from 'styled-components';
 
@@ -13,6 +14,18 @@ type CtaProps = {
 };
 
 type ImagePanelVariant = 'gallery' | 'portrait' | 'screen' | 'wide';
+
+const revealMotionProps = {
+  initial: { opacity: 0, y: 30 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, amount: 0.12, margin: '0px 0px -8% 0px' },
+  transition: { duration: 1, ease: [0.2, 0.65, 0.25, 1] },
+} satisfies HTMLMotionProps<'div'>;
+
+const revealHoverMotionProps = {
+  ...revealMotionProps,
+  whileHover: { y: -2 },
+} satisfies HTMLMotionProps<'article'>;
 
 const riseIn = keyframes`
   from {
@@ -126,25 +139,6 @@ const animationStyles = css<{ $animation?: AnimationPreset }>`
     animation: none !important;
     clip-path: none !important;
     transform: none !important;
-  }
-`;
-
-const revealStyles = css`
-  opacity: 0;
-  transform: translateY(30px);
-  transition:
-    opacity 1000ms cubic-bezier(0.2, 0.65, 0.25, 1),
-    transform 1000ms cubic-bezier(0.2, 0.65, 0.25, 1);
-
-  &.in {
-    opacity: 1;
-    transform: none;
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
   }
 `;
 
@@ -375,8 +369,7 @@ export const WorkSectionRoot = styled(PageWrap)`
   }
 `;
 
-export const SectionHeading = styled.div.attrs({ className: 'reveal' })`
-  ${revealStyles}
+export const SectionHeading = styled(motion.div).attrs(revealMotionProps)`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -417,8 +410,7 @@ export const SectionHeading = styled.div.attrs({ className: 'reveal' })`
   }
 `;
 
-export const Feature = styled.article.attrs({ className: 'reveal' })`
-  ${revealStyles}
+export const Feature = styled(motion.article).attrs(revealHoverMotionProps)`
   display: grid;
   grid-template-columns: 1.15fr 1fr;
   overflow: hidden;
@@ -427,17 +419,10 @@ export const Feature = styled.article.attrs({ className: 'reveal' })`
   background: var(--surface);
   box-shadow: var(--sh-md);
   transition:
-    opacity 1000ms cubic-bezier(0.2, 0.65, 0.25, 1),
-    transform 1000ms cubic-bezier(0.2, 0.65, 0.25, 1),
     box-shadow 400ms cubic-bezier(0.2, 0.65, 0.25, 1);
 
   &:hover {
-    transform: translateY(-2px);
     box-shadow: var(--sh-lg);
-  }
-
-  &.in:hover {
-    transform: translateY(-2px);
   }
 
   @media (max-width: 880px) {
@@ -509,8 +494,7 @@ export const SourceLink = styled.a`
   }
 `;
 
-export const NextRow = styled.div.attrs({ className: 'reveal' })`
-  ${revealStyles}
+export const NextRow = styled(motion.div).attrs(revealMotionProps)`
   display: flex;
   align-items: center;
   gap: 18px;
@@ -588,13 +572,9 @@ export const AboutGrid = styled.div`
   }
 `;
 
-export const AboutHeading = styled.div.attrs({ className: 'reveal' })`
-  ${revealStyles}
-`;
+export const AboutHeading = styled(motion.div).attrs(revealMotionProps)``;
 
-export const AboutCopy = styled.div.attrs({ className: 'reveal' })`
-  ${revealStyles}
-
+export const AboutCopy = styled(motion.div).attrs(revealMotionProps)`
   p {
     max-width: 520px;
     margin: 0;
@@ -631,8 +611,7 @@ export const ContactSectionRoot = styled(PageWrap)`
   }
 `;
 
-export const ContactCard = styled.div.attrs({ className: 'reveal' })`
-  ${revealStyles}
+export const ContactCard = styled(motion.div).attrs(revealMotionProps)`
   max-width: 680px;
   margin: 0 auto;
   text-align: center;
@@ -762,8 +741,7 @@ export const ProjectBodyGrid = styled.div`
   }
 `;
 
-export const Facts = styled.aside.attrs({ className: 'reveal' })`
-  ${revealStyles}
+export const Facts = styled(motion.aside).attrs(revealMotionProps)`
   position: sticky;
   top: 104px;
   display: flex;
@@ -801,9 +779,7 @@ export const Writeup = styled.div`
   max-width: 680px;
 `;
 
-export const WriteupArticle = styled.article.attrs({ className: 'reveal' })`
-  ${revealStyles}
-
+export const WriteupArticle = styled(motion.article).attrs(revealMotionProps)`
   h2 {
     ${headingStyles}
     margin: 0 0 18px;
@@ -853,8 +829,7 @@ export const HighlightList = styled.ul`
   }
 `;
 
-export const Gallery = styled.div.attrs({ className: 'reveal' })`
-  ${revealStyles}
+export const Gallery = styled(motion.div).attrs(revealMotionProps)`
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 16px;
@@ -871,9 +846,8 @@ export const MoreSection = styled.section`
   background: var(--surface-2);
 `;
 
-export const MoreInner = styled.div.attrs({ className: 'reveal' })`
+export const MoreInner = styled(motion.div).attrs(revealMotionProps)`
   ${pageWrapStyles}
-  ${revealStyles}
   padding-block: 80px;
   text-align: center;
 

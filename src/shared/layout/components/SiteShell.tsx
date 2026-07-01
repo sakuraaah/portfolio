@@ -16,40 +16,6 @@ export function SiteShell({ profileName }: SiteShellProps) {
   const location = useLocation();
 
   useEffect(() => {
-    const reducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)'
-    ).matches;
-    const revealEls = Array.from(
-      document.querySelectorAll<HTMLElement>('.reveal')
-    );
-
-    if (reducedMotion || !('IntersectionObserver' in window)) {
-      revealEls.forEach((el) => el.classList.add('in'));
-      return;
-    }
-
-    revealEls.forEach((el) => el.classList.remove('in'));
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('in');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
-    );
-
-    requestAnimationFrame(() => {
-      revealEls.forEach((el) => observer.observe(el));
-    });
-
-    return () => observer.disconnect();
-  }, [location.pathname]);
-
-  useEffect(() => {
     if (location.hash) {
       requestAnimationFrame(() => {
         document.querySelector(location.hash)?.scrollIntoView();
