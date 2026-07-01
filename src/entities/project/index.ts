@@ -1,2 +1,1 @@
-export { featuredProject } from './model';
-export type { Project } from './model';
+export type * from './model';

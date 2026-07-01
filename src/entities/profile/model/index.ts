@@ -1,1 +1,1 @@
-export type { Profile } from './profile.types';
+export type * from './profile.types';

@@ -1,15 +1,8 @@
-import { IconBrandGithub } from '@tabler/icons-react';
-
-import { type Project, featuredProject } from '@/entities/project';
+import { ProjectListSection } from '@/features/project';
 
 import { profile } from '@/shared/constants';
-import {
-  ChipList,
-  Eyebrow,
-  ImagePanel,
-  MetaLine,
-  SocialLinks,
-} from '@/shared/ui';
+import { CtaAnchor, CtaArrow } from '@/shared/styles';
+import { Eyebrow, ImagePanel, SocialLinks } from '@/shared/ui';
 
 import {
   AboutCopy,
@@ -19,33 +12,20 @@ import {
   AboutSectionRoot,
   ContactCard,
   ContactSectionRoot,
-  CtaAnchor,
-  CtaArrow,
-  CtaRouterLink,
-  DotGroup,
   EmailLink,
-  Feature,
-  FeatureActions,
-  FeatureBody,
-  FeatureTitle,
   HeroActions,
   HeroCopy,
   HeroGrid,
   HeroSection,
   HeroTitle,
   HeroTitleLine,
-  NavRouterLink,
-  NextRow,
-  SectionHeading,
-  SourceLink,
-  WorkSectionRoot,
 } from './portfolio.styled';
 
 export function HomePage() {
   return (
     <main id="top">
       <Hero />
-      <WorkSection project={featuredProject} />
+      <ProjectListSection />
       <AboutSection />
       <ContactSection />
     </main>
@@ -83,54 +63,6 @@ function Hero() {
         />
       </HeroGrid>
     </HeroSection>
-  );
-}
-
-function WorkSection({ project }: { project: Project }) {
-  return (
-    <WorkSectionRoot id="work">
-      <SectionHeading>
-        <div>
-          <Eyebrow label="Selected work" />
-          <h2>Things I&apos;ve built.</h2>
-        </div>
-        <p>An evolving showcase &mdash; each project added as it ships.</p>
-      </SectionHeading>
-
-      <Feature>
-        <ImagePanel label="Project screenshot" variant="screen" />
-        <FeatureBody>
-          <MetaLine year={project.year} type={project.type} />
-          <FeatureTitle>
-            <NavRouterLink to="/project">{project.title}</NavRouterLink>
-          </FeatureTitle>
-          <p>{project.description}</p>
-          <ChipList items={project.stack} withFeatureSpacing />
-          <FeatureActions>
-            <CtaRouterLink to="/project">
-              View project
-              <CtaArrow />
-            </CtaRouterLink>
-            <SourceLink href={profile.github}>
-              <IconBrandGithub aria-hidden="true" />
-              Source
-            </SourceLink>
-          </FeatureActions>
-        </FeatureBody>
-      </Feature>
-
-      <NextRow>
-        <DotGroup aria-hidden="true">
-          <span />
-          <span />
-          <span />
-        </DotGroup>
-        <p>
-          More projects are being migrated over from GitHub. This space grows as
-          they land.
-        </p>
-      </NextRow>
-    </WorkSectionRoot>
   );
 }
 
