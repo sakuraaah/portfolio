@@ -3,13 +3,13 @@ import { IconBrandGithub } from '@tabler/icons-react';
 import { featuredProject } from '@/entities/project';
 
 import { profile } from '@/shared/constants';
+import { ChipList, Fact, FactLabel, ImagePanel, MetaLine } from '@/shared/ui';
 
 import {
   BackArrow,
   CtaAnchor,
   CtaArrow,
   CtaRouterLink,
-  FactLabel,
   FactLinks,
   Facts,
   Gallery,
@@ -30,7 +30,6 @@ import {
   Writeup,
   WriteupArticle,
 } from './portfolio.styled';
-import { ChipList, Fact, ImagePanel, MetaLine } from './portfolio.ui';
 
 export function ProjectPage() {
   const project = featuredProject;
@@ -43,7 +42,7 @@ export function ProjectPage() {
           Selected work
         </CtaRouterLink>
         <ProjectMeta $animation="fadeDelay">
-          <MetaLine project={project} />
+          <MetaLine year={project.year} type={project.type} />
         </ProjectMeta>
         <ProjectTitle $animation="rise1">{project.title}</ProjectTitle>
         <ProjectDescription $animation="rise2">

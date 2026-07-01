@@ -3,6 +3,13 @@ import { IconBrandGithub } from '@tabler/icons-react';
 import { type Project, featuredProject } from '@/entities/project';
 
 import { profile } from '@/shared/constants';
+import {
+  ChipList,
+  Eyebrow,
+  ImagePanel,
+  MetaLine,
+  SocialLinks,
+} from '@/shared/ui';
 
 import {
   AboutCopy,
@@ -33,13 +40,6 @@ import {
   SourceLink,
   WorkSectionRoot,
 } from './portfolio.styled';
-import {
-  ChipList,
-  Eyebrow,
-  ImagePanel,
-  MetaLine,
-  SocialLinks,
-} from './portfolio.ui';
 
 export function HomePage() {
   return (
@@ -57,7 +57,7 @@ function Hero() {
     <HeroSection>
       <HeroGrid>
         <div>
-          <Eyebrow label={profile.role} animated />
+          <Eyebrow label={profile.role} animated heroSpacing />
           <HeroTitle>
             <HeroTitleLine $animation="rise1">Crafting software</HeroTitleLine>
             <HeroTitleLine $animation="rise2">
@@ -100,12 +100,12 @@ function WorkSection({ project }: { project: Project }) {
       <Feature>
         <ImagePanel label="Project screenshot" variant="screen" />
         <FeatureBody>
-          <MetaLine project={project} />
+          <MetaLine year={project.year} type={project.type} />
           <FeatureTitle>
             <NavRouterLink to="/project">{project.title}</NavRouterLink>
           </FeatureTitle>
           <p>{project.description}</p>
-          <ChipList items={project.stack} />
+          <ChipList items={project.stack} withFeatureSpacing />
           <FeatureActions>
             <CtaRouterLink to="/project">
               View project

@@ -13,8 +13,6 @@ type CtaProps = {
   $soft?: boolean;
 };
 
-type ImagePanelVariant = 'gallery' | 'portrait' | 'screen' | 'wide';
-
 const revealMotionProps = {
   initial: { opacity: 0, y: 30 },
   whileInView: { opacity: 1, y: 0 },
@@ -270,41 +268,6 @@ export const HeroGrid = styled.div`
     min-height: auto;
     gap: 36px;
   }
-`;
-
-export const EyebrowRoot = styled.div<{
-  $animated?: boolean;
-  $centered?: boolean;
-}>`
-  display: flex;
-  align-items: center;
-  justify-content: ${({ $centered }) => ($centered ? 'center' : 'flex-start')};
-  gap: 11px;
-  margin-bottom: 16px;
-
-  ${HeroSection} & {
-    margin-bottom: 30px;
-  }
-
-  ${({ $animated }) =>
-    $animated &&
-    css`
-      animation: ${fadeIn} 900ms both cubic-bezier(0.2, 0.65, 0.25, 1);
-    `}
-`;
-
-export const EyebrowLine = styled.span`
-  width: 26px;
-  height: 1px;
-  background: var(--accent);
-`;
-
-export const EyebrowText = styled.small`
-  color: var(--text-3);
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
 `;
 
 export const HeroTitle = styled.h1`
@@ -752,20 +715,6 @@ export const Facts = styled(motion.aside).attrs(revealMotionProps)`
   }
 `;
 
-export const FactLabel = styled.div`
-  margin-bottom: 8px;
-  color: var(--text-3);
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-`;
-
-export const FactValue = styled.div`
-  color: var(--text);
-  font-size: 16px;
-`;
-
 export const FactLinks = styled.div`
   display: flex;
   flex-direction: column;
@@ -873,193 +822,5 @@ export const MoreActions = styled.div`
   @media (max-width: 560px) {
     align-items: flex-start;
     flex-direction: column;
-  }
-`;
-
-export const MetaLineRoot = styled.div`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-bottom: 24px;
-`;
-
-export const StatusPill = styled.span`
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  padding: 5px 11px;
-  border: 1px solid var(--accent-border);
-  border-radius: 100px;
-  color: var(--accent);
-  background: var(--accent-subtle);
-  font-size: 11.5px;
-  font-weight: 600;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  white-space: nowrap;
-`;
-
-export const StatusDot = styled.span`
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-`;
-
-export const MetaDate = styled.span`
-  color: var(--text-3);
-  font-size: 13px;
-`;
-
-export const Chips = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-
-  ${Feature} & {
-    margin-bottom: 36px;
-  }
-`;
-
-export const Chip = styled.span`
-  padding: 5px 12px;
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  color: var(--text-2);
-  background: var(--surface-2);
-  font-size: 12.5px;
-  font-weight: 500;
-`;
-
-export const ImagePanelRoot = styled.div<{
-  $animation?: AnimationPreset;
-  $variant: ImagePanelVariant;
-}>`
-  position: relative;
-  overflow: hidden;
-  border: 1px solid var(--border);
-  border-radius: 8px;
-  background: linear-gradient(
-    135deg,
-    color-mix(in oklab, var(--accent-subtle) 64%, var(--surface)) 0%,
-    var(--surface-2) 100%
-  );
-  box-shadow: var(--sh-md);
-  ${animationStyles}
-
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 36px 36px;
-    opacity: 0.32;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 18px;
-    border: 1px dashed color-mix(in oklab, var(--text-3) 38%, transparent);
-    border-radius: inherit;
-  }
-
-  ${({ $variant }) =>
-    $variant === 'portrait' &&
-    css`
-      width: 100%;
-      aspect-ratio: 4 / 5;
-      max-height: 600px;
-      box-shadow: var(--sh-lg);
-
-      @media (max-width: 880px) {
-        order: -1;
-        max-height: 380px;
-      }
-    `}
-
-  ${({ $variant }) =>
-    $variant === 'screen' &&
-    css`
-      min-height: 440px;
-      border: 0;
-      border-right: 1px solid var(--border);
-      border-radius: 0;
-      box-shadow: none;
-
-      @media (max-width: 880px) {
-        min-height: 300px;
-        border-right: 0;
-        border-bottom: 1px solid var(--border);
-      }
-    `}
-
-  ${({ $variant }) =>
-    $variant === 'wide' &&
-    css`
-      width: 100%;
-      aspect-ratio: 16 / 9;
-      box-shadow: var(--sh-lg);
-
-      @media (max-width: 560px) {
-        border-right: 0;
-        border-left: 0;
-        border-radius: 0;
-      }
-    `}
-
-  ${({ $variant }) =>
-    $variant === 'gallery' &&
-    css`
-      aspect-ratio: 4 / 3;
-    `}
-`;
-
-export const ImagePanelContent = styled.div`
-  position: absolute;
-  inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-
-  span {
-    z-index: 1;
-    padding: 8px 13px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: color-mix(in oklab, var(--surface) 82%, transparent);
-    color: var(--text-3);
-    font-size: 13px;
-    font-weight: 500;
-  }
-`;
-
-export const SocialLinksRoot = styled.div<{ $size: 'lg' | 'sm' }>`
-  display: flex;
-  align-items: center;
-  justify-content: ${({ $size }) => ($size === 'lg' ? 'center' : 'flex-start')};
-  gap: ${({ $size }) => ($size === 'lg' ? '24px' : '20px')};
-`;
-
-export const SocialLink = styled.a<{ $size: 'lg' | 'sm' }>`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-3);
-  text-decoration: none;
-  transition: color 250ms ease;
-
-  svg {
-    width: ${({ $size }) => ($size === 'lg' ? '21px' : '19px')};
-    height: ${({ $size }) => ($size === 'lg' ? '21px' : '19px')};
-  }
-
-  &:hover,
-  &:focus-visible {
-    color: var(--text);
   }
 `;
