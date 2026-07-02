@@ -24,7 +24,13 @@ export function useTranslatedProject(project: Project): TranslatedProject {
       return undefined;
     }
 
-    return t(key, { returnObjects: true }) as string[];
+    const translatedValue = t(key, { returnObjects: true });
+
+    return Array.isArray(translatedValue)
+      ? translatedValue.filter(
+          (item): item is string => typeof item === 'string'
+        )
+      : undefined;
   };
 
   return {
