@@ -5,7 +5,14 @@ import { useTranslatedProject } from '@/features/project/hooks';
 import { type Project } from '@/entities/project';
 
 import { I18nNamespace } from '@/shared/i18n';
-import { CtaAnchor, CtaArrow, ChipList, Fact, FactLabel, ImagePanel } from '@/shared/ui';
+import {
+  ChipList,
+  CtaAnchor,
+  CtaArrow,
+  Fact,
+  FactLabel,
+  ImagePanel,
+} from '@/shared/ui';
 
 import {
   FactLinks,
@@ -36,10 +43,7 @@ export function ProjectBodySection({ project }: ProjectBodySectionProps) {
         <Facts>
           <Fact label={t('body.facts.year')} value={project.year} />
 
-          <Fact
-            label={t('body.facts.role')}
-            value={translatedProject.role}
-          />
+          <Fact label={t('body.facts.role')} value={translatedProject.role} />
 
           <div>
             <FactLabel>{t('body.facts.stack')}</FactLabel>
@@ -90,11 +94,7 @@ export function ProjectBodySection({ project }: ProjectBodySectionProps) {
           {hasGallery && (
             <Gallery>
               {project.galleryImages?.map((image) => (
-                <ImagePanel
-                  image={image}
-                  key={image.src}
-                  variant="gallery"
-                />
+                <ImagePanel image={image} key={image.src} variant="gallery" />
               ))}
             </Gallery>
           )}

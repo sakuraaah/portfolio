@@ -6,7 +6,13 @@ import { useTranslatedProject } from '@/features/project/hooks';
 import { type Project } from '@/entities/project';
 
 import { I18nNamespace } from '@/shared/i18n';
-import { CtaArrow, CtaRouterLink, ChipList, ImagePanel, MetaLine } from '@/shared/ui';
+import {
+  ChipList,
+  CtaArrow,
+  CtaRouterLink,
+  ImagePanel,
+  MetaLine,
+} from '@/shared/ui';
 
 import {
   ProjectCardActions,

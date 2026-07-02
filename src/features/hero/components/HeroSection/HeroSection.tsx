@@ -2,7 +2,13 @@ import { Trans, useTranslation } from 'react-i18next';
 
 import { profile } from '@/shared/constants';
 import { I18nNamespace } from '@/shared/i18n';
-import { CtaAnchor, CtaArrow, Eyebrow, ImagePanel, SocialLinks } from '@/shared/ui';
+import {
+  CtaAnchor,
+  CtaArrow,
+  Eyebrow,
+  ImagePanel,
+  SocialLinks,
+} from '@/shared/ui';
 
 import {
   HeroActions,
@@ -19,11 +25,7 @@ export function HeroSection() {
     <HeroSectionRoot>
       <HeroGrid>
         <div>
-          <Eyebrow
-            label={t('role')}
-            animated
-            heroSpacing
-          />
+          <Eyebrow label={t('role')} animated heroSpacing />
           <HeroTitle $animation="rise1">
             <Trans
               components={{ accent: <em /> }}

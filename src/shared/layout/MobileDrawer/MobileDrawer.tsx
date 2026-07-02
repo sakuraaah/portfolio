@@ -105,7 +105,9 @@ export function MobileDrawer({
           <ThemeDotGroup role="group" aria-label={t('theme.groupLabel')}>
             {THEME_PREFERENCES.map((preference) => {
               const ThemeIcon = THEME_PREFERENCE_ICONS[preference];
-              const preferenceLabel = t(THEME_PREFERENCE_LABEL_KEYS[preference]);
+              const preferenceLabel = t(
+                THEME_PREFERENCE_LABEL_KEYS[preference]
+              );
 
               return (
                 <ThemeDotButton
