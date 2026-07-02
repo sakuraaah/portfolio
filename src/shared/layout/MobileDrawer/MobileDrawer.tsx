@@ -41,7 +41,7 @@ export function MobileDrawer({
 
   return (
     <Drawer
-      aria-label="Mobile navigation"
+      aria-label={t('menu.mobileNavigation')}
       closeOnClickOutside
       closeOnEscape
       id="mobile-drawer"
@@ -81,7 +81,7 @@ export function MobileDrawer({
         <DrawerHeader align="center" justify="space-between">
           <DrawerBrand>{profileName}</DrawerBrand>
           <DrawerCloseButton
-            aria-label="Close menu"
+            aria-label={t('menu.close')}
             type="button"
             variant="subtle"
             onClick={onClose}
@@ -89,26 +89,29 @@ export function MobileDrawer({
             <IconX aria-hidden="true" size={17} stroke={1.8} />
           </DrawerCloseButton>
         </DrawerHeader>
-        <DrawerLinks aria-label="Mobile navigation" component="nav">
+        <DrawerLinks aria-label={t('menu.mobileNavigation')} component="nav">
           {SITE_NAV_LINKS.map((link) => (
             <DrawerLink href={link.href} key={link.href} onClick={onClose}>
-              {link.label}
+              {t(link.labelKey)}
               <IconArrowRight aria-hidden="true" className="cta-arrow" />
             </DrawerLink>
           ))}
         </DrawerLinks>
         <DrawerFooter>
           <DrawerAppearance align="baseline" justify="space-between">
-            <span>Appearance</span>
+            <span>{t('menu.appearance')}</span>
             <strong>{themeLabel}</strong>
           </DrawerAppearance>
-          <ThemeDotGroup role="group" aria-label="Theme">
+          <ThemeDotGroup role="group" aria-label={t('theme.groupLabel')}>
             {THEME_PREFERENCES.map((preference) => {
               const ThemeIcon = THEME_PREFERENCE_ICONS[preference];
+              const preferenceLabel = t(THEME_PREFERENCE_LABEL_KEYS[preference]);
 
               return (
                 <ThemeDotButton
-                  aria-label={`${t(THEME_PREFERENCE_LABEL_KEYS[preference])} theme`}
+                  aria-label={t('theme.optionLabel', {
+                    theme: preferenceLabel,
+                  })}
                   data-val={preference}
                   key={preference}
                   type="button"

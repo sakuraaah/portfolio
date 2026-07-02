@@ -14,7 +14,7 @@ import {
 } from './ContactSection.styled';
 
 export function ContactSection() {
-  const { t } = useTranslation(I18nNamespace.Common);
+  const { t } = useTranslation(I18nNamespace.Profile);
 
   return (
     <ContactSectionRoot id="contact">
@@ -24,7 +24,7 @@ export function ContactSection() {
           <Trans
             components={{ accent: <em /> }}
             i18nKey="contact.title"
-            ns={I18nNamespace.Common}
+            ns={I18nNamespace.Profile}
           />
         </ContactTitle>
         <ContactCopy>{t('contact.copy')}</ContactCopy>

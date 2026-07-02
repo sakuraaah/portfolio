@@ -13,7 +13,7 @@ import {
 } from './AboutSection.styled';
 
 export function AboutSection() {
-  const { t } = useTranslation(I18nNamespace.Common);
+  const { t } = useTranslation(I18nNamespace.Profile);
 
   return (
     <AboutSectionRoot id="about">

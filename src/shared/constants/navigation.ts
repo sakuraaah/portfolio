@@ -1,14 +1,14 @@
 export const SITE_NAV_LINKS = [
   {
     href: '/#work',
-    label: 'Work',
+    labelKey: 'navigation.links.work',
   },
   {
     href: '/#about',
-    label: 'About',
+    labelKey: 'navigation.links.about',
   },
   {
     href: '/#contact',
-    label: 'Contact',
+    labelKey: 'navigation.links.contact',
   },
 ] as const;

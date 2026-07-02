@@ -37,15 +37,15 @@ export function Header({ menuOpen, profileName, onOpenMenu }: HeaderProps) {
       <HeaderInner fluid>
         <HeaderGroup justify="space-between" gap={24} wrap="nowrap">
           <BrandLink to="/">{profileName}</BrandLink>
-          <HeaderNav aria-label="Primary navigation" component="nav">
+          <HeaderNav aria-label={t('navigation.primary')} component="nav">
             {SITE_NAV_LINKS.map((link) => (
               <HeaderNavLink href={link.href} key={link.href}>
-                {link.label}
+                {t(link.labelKey)}
               </HeaderNavLink>
             ))}
             <ThemePillButton
-              aria-label={`Theme: ${themeLabel}. Click to change`}
-              title={`Theme: ${themeLabel}. Click to change`}
+              aria-label={t('theme.controlLabel', { theme: themeLabel })}
+              title={t('theme.controlLabel', { theme: themeLabel })}
               type="button"
               variant="subtle"
               leftSection={
@@ -59,7 +59,7 @@ export function Header({ menuOpen, profileName, onOpenMenu }: HeaderProps) {
           <MenuButton
             aria-controls="mobile-drawer"
             aria-expanded={menuOpen}
-            aria-label="Open menu"
+            aria-label={t('menu.open')}
             type="button"
             variant="subtle"
             onClick={onOpenMenu}

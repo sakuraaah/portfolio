@@ -14,14 +14,14 @@ import {
 } from './HeroSection.styled';
 
 export function HeroSection() {
-  const { t } = useTranslation(I18nNamespace.Common);
+  const { t } = useTranslation(I18nNamespace.Profile);
 
   return (
     <HeroSectionRoot>
       <HeroGrid>
         <div>
           <Eyebrow
-            label={t('profile.role', { defaultValue: profile.role })}
+            label={t('role')}
             animated
             heroSpacing
           />
@@ -29,7 +29,7 @@ export function HeroSection() {
             <Trans
               components={{ accent: <em /> }}
               i18nKey="hero.title"
-              ns={I18nNamespace.Common}
+              ns={I18nNamespace.Profile}
             />
           </HeroTitle>
           <HeroCopy $animation="rise3">{t('hero.copy')}</HeroCopy>

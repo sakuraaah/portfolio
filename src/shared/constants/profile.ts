@@ -4,7 +4,6 @@ import heroImageSrc from '@/assets/hero.jpg';
 
 export const profile: Profile = {
   name: 'Nikita Trofimov',
-  role: 'Full-stack engineer',
   email: 'ntrofimov@ntrofimov.dev',
   heroImage: {
     src: heroImageSrc,
