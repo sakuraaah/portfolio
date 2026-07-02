@@ -8,4 +8,7 @@ export type Project = {
   stack: string[];
   overview: string[];
   highlights: string[];
+  latest?: boolean;
+  github?: string;
+  link?: string;
 };

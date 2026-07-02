@@ -5,10 +5,9 @@ import styled from 'styled-components';
 
 import {
   type AnimationPreset,
-  CtaRouterLink,
   PageWrap,
   animationStyles,
-} from '@/features/project/styles';
+} from '@/shared/styles';
 
 type AnimationProps = {
   $animation?: AnimationPreset;
@@ -21,38 +20,48 @@ const StyledGroup = Group as unknown as ComponentType<StyledMantineProps>;
 const StyledText = Text as unknown as ComponentType<StyledMantineProps>;
 const StyledTitle = Title as unknown as ComponentType<StyledMantineProps>;
 
-export const ProjectHero = styled(PageWrap)`
-  padding-block: 56px 48px;
+export const HeroSectionRoot = styled(PageWrap)`
+  padding-block: 80px 96px;
 
-  > ${CtaRouterLink} {
-    margin-bottom: 36px;
-  }
-
-  @media (max-width: 560px) {
-    padding-top: 40px;
+  @media (max-width: 880px) {
+    padding-block: 40px 72px;
   }
 `;
 
-export const ProjectMeta = styled(StyledBox)<AnimationProps>`
-  margin-bottom: 20px;
-  ${animationStyles}
+export const HeroGrid = styled(StyledBox)`
+  display: grid;
+  grid-template-columns: 1fr 1.04fr;
+  align-items: center;
+  min-height: min(74vh, 640px);
+  gap: 64px;
+
+  @media (max-width: 880px) {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: 36px;
+  }
 `;
 
-export const ProjectTitle = styled(StyledTitle).attrs({
+export const HeroTitle = styled(StyledTitle).attrs({
   order: 1,
 })<AnimationProps>`
-  max-width: 14ch;
-  margin: 0 0 24px;
+  margin: 0 0 28px;
   color: var(--text);
   font-family: var(--serif);
-  font-size: 76px;
+  font-size: 68px;
   font-weight: 400;
-  line-height: 1.02;
-  letter-spacing: -0.025em;
+  line-height: 1.04;
+  letter-spacing: -0.02em;
+
+  em {
+    color: var(--accent);
+    font-style: italic;
+  }
+
   ${animationStyles}
 
   @media (max-width: 880px) {
-    font-size: 58px;
+    font-size: 56px;
   }
 
   @media (max-width: 560px) {
@@ -60,20 +69,20 @@ export const ProjectTitle = styled(StyledTitle).attrs({
   }
 `;
 
-export const ProjectDescription = styled(StyledText)<AnimationProps>`
-  max-width: 620px;
-  margin: 0 0 36px;
+export const HeroCopy = styled(StyledText)<AnimationProps>`
+  max-width: 430px;
+  margin: 0 0 38px;
   color: var(--text-2);
-  font-size: 22px;
-  line-height: 1.55;
+  font-size: 18.5px;
+  line-height: 1.6;
   ${animationStyles}
 
   @media (max-width: 880px) {
-    font-size: 19px;
+    font-size: 17px;
   }
 `;
 
-export const ProjectActions = styled(StyledGroup)<AnimationProps>`
+export const HeroActions = styled(StyledGroup)<AnimationProps>`
   display: flex;
   align-items: center;
   flex-wrap: wrap;

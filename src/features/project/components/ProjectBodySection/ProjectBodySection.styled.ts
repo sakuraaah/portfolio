@@ -2,11 +2,7 @@ import { Box, Stack } from '@mantine/core';
 import { motion } from 'motion/react';
 import styled from 'styled-components';
 
-import {
-  PageWrap,
-  headingStyles,
-  revealMotionProps,
-} from '@/features/project/styles';
+import { PageWrap, headingStyles, revealMotionProps } from '@/shared/styles';
 
 export const ProjectBodySectionRoot = styled(PageWrap)`
   padding-block: 80px;

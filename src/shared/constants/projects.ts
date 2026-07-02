@@ -3,6 +3,7 @@ import type { Project } from '@/entities/project';
 export const projects: Project[] = [
   {
     id: 'project-name',
+    latest: true,
     title: 'Project Name',
     year: '2026',
     role: 'Design & engineering',

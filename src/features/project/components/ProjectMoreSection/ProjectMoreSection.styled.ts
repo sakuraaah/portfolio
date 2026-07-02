@@ -2,7 +2,7 @@ import { Box, Group } from '@mantine/core';
 import { motion } from 'motion/react';
 import styled from 'styled-components';
 
-import { headingStyles, revealMotionProps } from '@/features/project/styles';
+import { headingStyles, revealMotionProps } from '@/shared/styles';
 
 export const MoreSection = styled(Box).attrs({ component: 'section' })`
   border-top: 1px solid var(--border);

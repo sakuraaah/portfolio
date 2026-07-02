@@ -1,9 +1,10 @@
+import { useTranslation } from 'react-i18next';
+
 import { ProjectCard } from '@/features/project/components/ProjectCard';
-import { SectionHeading } from '@/features/project/styles';
 
 import { type Project } from '@/entities/project';
 
-import { projects as defaultProjects } from '@/shared/constants';
+import { I18nNamespace } from '@/shared/i18n';
 import { Eyebrow } from '@/shared/ui';
 
 import {
@@ -11,23 +12,24 @@ import {
   NextRow,
   ProjectList,
   ProjectListSectionRoot,
+  SectionHeading,
 } from './ProjectListSection.styled';
 
 type ProjectListSectionProps = {
-  projects?: Project[];
+  projects: Project[];
 };
 
-export function ProjectListSection({
-  projects = defaultProjects,
-}: ProjectListSectionProps) {
+export function ProjectListSection({ projects }: ProjectListSectionProps) {
+  const { t } = useTranslation(I18nNamespace.Common);
+
   return (
     <ProjectListSectionRoot id="work">
       <SectionHeading>
         <div>
-          <Eyebrow label="Selected work" />
-          <h2>Things I&apos;ve built.</h2>
+          <Eyebrow label={t('project.list.eyebrow')} />
+          <h2>{t('project.list.title')}</h2>
         </div>
-        <p>An evolving showcase &mdash; each project added as it ships.</p>
+        <p>{t('project.list.copy')}</p>
       </SectionHeading>
 
       <ProjectList>
@@ -42,10 +44,7 @@ export function ProjectListSection({
           <span />
           <span />
         </DotGroup>
-        <p>
-          More projects are being migrated over from GitHub. This space grows as
-          they land.
-        </p>
+        <p>{t('project.list.more')}</p>
       </NextRow>
     </ProjectListSectionRoot>
   );

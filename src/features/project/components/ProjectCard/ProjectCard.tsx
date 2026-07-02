@@ -1,22 +1,21 @@
 import { IconBrandGithub } from '@tabler/icons-react';
+import { useTranslation } from 'react-i18next';
 
-import {
-  CtaArrow,
-  CtaRouterLink,
-  NavRouterLink,
-  SourceLink,
-} from '@/features/project/styles';
+import { useTranslatedProject } from '@/features/project/hooks';
 
 import { type Project } from '@/entities/project';
 
-import { profile } from '@/shared/constants';
+import { I18nNamespace } from '@/shared/i18n';
+import { CtaArrow, CtaRouterLink } from '@/shared/styles';
 import { ChipList, ImagePanel, MetaLine } from '@/shared/ui';
 
 import {
   ProjectCardActions,
   ProjectCardBody,
   ProjectCardRoot,
+  ProjectCardSourceLink,
   ProjectCardTitle,
+  ProjectCardTitleLink,
 } from './ProjectCard.styled';
 
 type ProjectCardProps = {
@@ -24,25 +23,40 @@ type ProjectCardProps = {
 };
 
 export function ProjectCard({ project }: ProjectCardProps) {
+  const { t } = useTranslation(I18nNamespace.Common);
+  const translatedProject = useTranslatedProject(project);
+
   return (
     <ProjectCardRoot>
-      <ImagePanel label="Project screenshot" variant="screen" />
+      <ImagePanel label={t('project.card.imageLabel')} variant="screen" />
+
       <ProjectCardBody>
-        <MetaLine year={project.year} type={project.type} />
+        {project.latest && (
+          <MetaLine year={project.year} type={translatedProject.type} />
+        )}
+
         <ProjectCardTitle>
-          <NavRouterLink to="/project">{project.title}</NavRouterLink>
+          <ProjectCardTitleLink to={`/${project.id}`}>
+            {translatedProject.title}
+          </ProjectCardTitleLink>
         </ProjectCardTitle>
-        <p>{project.description}</p>
-        <ChipList items={project.stack} withFeatureSpacing />
+
+        <p>{translatedProject.description}</p>
+
+        <ChipList items={translatedProject.stack} withFeatureSpacing />
+
         <ProjectCardActions>
-          <CtaRouterLink to="/project">
-            View project
+          <CtaRouterLink to={`/${project.id}`}>
+            {t('project.actions.viewProject')}
             <CtaArrow />
           </CtaRouterLink>
-          <SourceLink href={profile.github}>
-            <IconBrandGithub aria-hidden="true" />
-            Source
-          </SourceLink>
+
+          {project.github && (
+            <ProjectCardSourceLink href={project.github}>
+              <IconBrandGithub aria-hidden="true" />
+              {t('project.actions.source')}
+            </ProjectCardSourceLink>
+          )}
         </ProjectCardActions>
       </ProjectCardBody>
     </ProjectCardRoot>

@@ -1,5 +1,23 @@
-import { ProjectDetail } from '@/features/project';
+import {
+  ProjectBodySection,
+  ProjectHeroSection,
+  ProjectMoreSection,
+  ProjectShotSection,
+} from '@/features/project';
 
-export function ProjectPage() {
-  return <ProjectDetail />;
+import type { Project } from '@/entities/project';
+
+type ProjectPageProps = {
+  project: Project;
+};
+
+export function ProjectPage({ project }: ProjectPageProps) {
+  return (
+    <main>
+      <ProjectHeroSection project={project} />
+      <ProjectShotSection />
+      <ProjectBodySection project={project} />
+      <ProjectMoreSection />
+    </main>
+  );
 }

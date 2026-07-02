@@ -1,11 +1,8 @@
-import {
-  BackArrow,
-  CtaAnchor,
-  CtaArrow,
-  CtaRouterLink,
-} from '@/features/project/styles';
+import { useTranslation } from 'react-i18next';
 
 import { profile } from '@/shared/constants';
+import { I18nNamespace } from '@/shared/i18n';
+import { BackArrow, CtaAnchor, CtaArrow, CtaRouterLink } from '@/shared/styles';
 
 import {
   MoreActions,
@@ -14,17 +11,19 @@ import {
 } from './ProjectMoreSection.styled';
 
 export function ProjectMoreSection() {
+  const { t } = useTranslation(I18nNamespace.Common);
+
   return (
     <MoreSection>
       <MoreInner>
-        <h2>Want to see more?</h2>
+        <h2>{t('project.more.title')}</h2>
         <MoreActions>
           <CtaRouterLink to="/#work">
             <BackArrow />
-            Back to all work
+            {t('project.actions.backToAllWork')}
           </CtaRouterLink>
           <CtaAnchor $muted href={`mailto:${profile.email}`}>
-            Get in touch
+            {t('project.actions.getInTouch')}
             <CtaArrow />
           </CtaAnchor>
         </MoreActions>
