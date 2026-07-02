@@ -5,7 +5,7 @@ import { I18nNamespace, Language, SUPPORTED_LANGUAGES } from './model';
 import { resources } from './resources';
 
 if (!i18n.isInitialized) {
-  i18n.use(initReactI18next).init({
+  void i18n.use(initReactI18next).init({
     defaultNS: I18nNamespace.Common,
     fallbackLng: Language.En,
     interpolation: {

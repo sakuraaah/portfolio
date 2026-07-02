@@ -12,12 +12,38 @@ export default defineConfig([
     files: ['**/*.{ts,tsx}'],
     extends: [
       js.configs.recommended,
-      tseslint.configs.recommended,
+      tseslint.configs.recommendedTypeChecked,
       reactHooks.configs.flat.recommended,
       reactRefresh.configs.vite,
     ],
     languageOptions: {
       globals: globals.browser,
+      parserOptions: {
+        project: ['./tsconfig.app.json', './tsconfig.node.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+    rules: {
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        {
+          disallowTypeAnnotations: true,
+          fixStyle: 'separate-type-imports',
+          prefer: 'type-imports',
+        },
+      ],
+      'no-restricted-imports': [
+        'error',
+        {
+          patterns: [
+            {
+              group: ['../**'],
+              message:
+                'Use ./ for same-folder imports or @/ absolute imports instead of parent-relative paths.',
+            },
+          ],
+        },
+      ],
     },
   },
   eslintConfigPrettier,
