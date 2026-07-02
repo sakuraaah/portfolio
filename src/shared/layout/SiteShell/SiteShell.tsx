@@ -2,9 +2,9 @@ import { useEffect, useState } from 'react';
 
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { Footer } from './Footer';
-import { Header } from './Header';
-import { MobileDrawer } from './MobileDrawer';
+import { Footer } from '../Footer';
+import { Header } from '../Header';
+import { MobileDrawer } from '../MobileDrawer';
 import { SiteRoot } from './SiteShell.styled';
 
 type SiteShellProps = {
