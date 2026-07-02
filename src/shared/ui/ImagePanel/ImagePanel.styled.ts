@@ -118,25 +118,6 @@ export const ImagePanelRoot = styled.div<{
   box-shadow: var(--sh-md);
   ${animationStyles}
 
-  &::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(var(--border) 1px, transparent 1px),
-      linear-gradient(90deg, var(--border) 1px, transparent 1px);
-    background-size: 36px 36px;
-    opacity: 0.32;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 18px;
-    border: 1px dashed color-mix(in oklab, var(--text-3) 38%, transparent);
-    border-radius: inherit;
-  }
-
   ${({ $variant }) =>
     $variant === 'portrait' &&
     css`
@@ -188,22 +169,10 @@ export const ImagePanelRoot = styled.div<{
     `}
 `;
 
-export const ImagePanelContent = styled.div`
+export const ImagePanelImage = styled.img`
   position: absolute;
   inset: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-
-  span {
-    z-index: 1;
-    padding: 8px 13px;
-    border: 1px solid var(--border);
-    border-radius: 6px;
-    background: color-mix(in oklab, var(--surface) 82%, transparent);
-    color: var(--text-3);
-    font-size: 13px;
-    font-weight: 500;
-  }
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;

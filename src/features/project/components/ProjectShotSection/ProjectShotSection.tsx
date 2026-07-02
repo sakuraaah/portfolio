@@ -1,20 +1,17 @@
-import { useTranslation } from 'react-i18next';
+import { type Project } from '@/entities/project';
 
-import { I18nNamespace } from '@/shared/i18n';
 import { ImagePanel } from '@/shared/ui';
 
 import { ProjectShotSectionRoot } from './ProjectShotSection.styled';
 
-export function ProjectShotSection() {
-  const { t } = useTranslation(I18nNamespace.Common);
+type ProjectShotSectionProps = {
+  project: Project;
+};
 
+export function ProjectShotSection({ project }: ProjectShotSectionProps) {
   return (
     <ProjectShotSectionRoot>
-      <ImagePanel
-        animation="image"
-        label={t('project.shot.imageLabel')}
-        variant="wide"
-      />
+      <ImagePanel animation="image" image={project.mainImage} variant="wide" />
     </ProjectShotSectionRoot>
   );
 }

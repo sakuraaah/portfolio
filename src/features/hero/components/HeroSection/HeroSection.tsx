@@ -43,7 +43,7 @@ export function HeroSection() {
         </div>
         <ImagePanel
           animation="image"
-          label={t('hero.image.portraitLabel')}
+          image={profile.heroImage}
           variant="portrait"
         />
       </HeroGrid>

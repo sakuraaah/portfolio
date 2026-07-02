@@ -69,8 +69,10 @@ export const WriteupArticle = styled(Box).attrs({
   }
 `;
 
-export const HighlightBlock = styled(WriteupArticle)`
-  margin-top: 48px;
+export const HighlightBlock = styled(WriteupArticle)<{
+  $withoutTopOffset?: boolean;
+}>`
+  margin-top: ${({ $withoutTopOffset }) => ($withoutTopOffset ? 0 : '48px')};
 `;
 
 export const HighlightList = styled(Box).attrs({ component: 'ul' })`

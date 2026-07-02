@@ -28,7 +28,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
   return (
     <ProjectCardRoot>
-      <ImagePanel label={t('project.card.imageLabel')} variant="screen" />
+      <ImagePanel image={project.mainImage} variant="screen" />
 
       <ProjectCardBody>
         {project.latest && (

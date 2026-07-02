@@ -27,6 +27,9 @@ type ProjectBodySectionProps = {
 export function ProjectBodySection({ project }: ProjectBodySectionProps) {
   const { t } = useTranslation(I18nNamespace.Common);
   const translatedProject = useTranslatedProject(project);
+  const hasOverview = Boolean(translatedProject.overview?.length);
+  const hasHighlights = Boolean(translatedProject.highlights?.length);
+  const hasGallery = Boolean(project.galleryImages?.length);
 
   return (
     <ProjectBodySectionRoot>
@@ -62,35 +65,40 @@ export function ProjectBodySection({ project }: ProjectBodySectionProps) {
         </Facts>
 
         <Writeup>
-          <WriteupArticle>
-            <h2>{t('project.body.overview')}</h2>
-            {translatedProject.overview.map((paragraph) => (
-              <p key={paragraph}>{paragraph}</p>
-            ))}
-          </WriteupArticle>
-
-          <HighlightBlock>
-            <h2>{t('project.body.highlights')}</h2>
-            <HighlightList>
-              {translatedProject.highlights.map((highlight) => (
-                <li key={highlight}>
-                  <span aria-hidden="true" />
-                  {highlight}
-                </li>
+          {hasOverview && (
+            <WriteupArticle>
+              <h2>{t('project.body.overview')}</h2>
+              {translatedProject.overview?.map((paragraph) => (
+                <p key={paragraph}>{paragraph}</p>
               ))}
-            </HighlightList>
-          </HighlightBlock>
+            </WriteupArticle>
+          )}
 
-          <Gallery>
-            <ImagePanel
-              label={t('project.body.galleryImageLabel')}
-              variant="gallery"
-            />
-            <ImagePanel
-              label={t('project.body.galleryImageLabel')}
-              variant="gallery"
-            />
-          </Gallery>
+          {hasHighlights && (
+            <HighlightBlock $withoutTopOffset={!hasOverview}>
+              <h2>{t('project.body.highlights')}</h2>
+              <HighlightList>
+                {translatedProject.highlights?.map((highlight) => (
+                  <li key={highlight}>
+                    <span aria-hidden="true" />
+                    {highlight}
+                  </li>
+                ))}
+              </HighlightList>
+            </HighlightBlock>
+          )}
+
+          {hasGallery && (
+            <Gallery>
+              {project.galleryImages?.map((image) => (
+                <ImagePanel
+                  image={image}
+                  key={image.src}
+                  variant="gallery"
+                />
+              ))}
+            </Gallery>
+          )}
         </Writeup>
       </ProjectBodyGrid>
     </ProjectBodySectionRoot>

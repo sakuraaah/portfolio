@@ -1,22 +1,22 @@
+import { type Image } from '@/shared/types';
+
 import {
   type AnimationPreset,
-  ImagePanelContent,
+  ImagePanelImage,
   ImagePanelRoot,
   type ImagePanelVariant,
 } from './ImagePanel.styled';
 
 type ImagePanelProps = {
   animation?: AnimationPreset;
-  label: string;
+  image: Image;
   variant: ImagePanelVariant;
 };
 
-export function ImagePanel({ animation, label, variant }: ImagePanelProps) {
+export function ImagePanel({ animation, image, variant }: ImagePanelProps) {
   return (
     <ImagePanelRoot $animation={animation} $variant={variant}>
-      <ImagePanelContent>
-        <span>{label}</span>
-      </ImagePanelContent>
+      <ImagePanelImage alt={image.alt} src={image.src} />
     </ImagePanelRoot>
   );
 }

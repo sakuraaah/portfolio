@@ -1,3 +1,5 @@
+import { type Image } from '@/shared/types';
+
 export type Project = {
   id: string;
   title: string;
@@ -6,8 +8,10 @@ export type Project = {
   type: string;
   description: string;
   stack: string[];
-  overview: string[];
-  highlights: string[];
+  mainImage: Image;
+  galleryImages: Image[];
+  overview?: string[];
+  highlights?: string[];
   latest?: boolean;
   github?: string;
   link?: string;

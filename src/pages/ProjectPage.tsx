@@ -15,7 +15,7 @@ export function ProjectPage({ project }: ProjectPageProps) {
   return (
     <main>
       <ProjectHeroSection project={project} />
-      <ProjectShotSection />
+      <ProjectShotSection project={project} />
       <ProjectBodySection project={project} />
       <ProjectMoreSection />
     </main>

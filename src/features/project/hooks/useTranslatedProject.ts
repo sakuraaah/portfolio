@@ -11,8 +11,8 @@ export function useTranslatedProject(project: Project): Project {
   const translateValue = (field: string, defaultValue: string) =>
     t(`${baseKey}.${field}`, { defaultValue });
 
-  const translateList = (field: string, values: string[]) =>
-    values.map((value, index) =>
+  const translateList = (field: string, values?: string[]) =>
+    values?.map((value, index) =>
       t(`${baseKey}.${field}.${index}`, { defaultValue: value })
     );
 

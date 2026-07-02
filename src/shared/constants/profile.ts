@@ -1,10 +1,15 @@
 import type { Profile } from '@/entities/profile';
 
+import heroImageSrc from '@/assets/hero.jpg';
+
 export const profile: Profile = {
-  name: 'Alex Rivera',
+  name: 'Nikita Trofimov',
   role: 'Full-stack engineer',
-  email: 'hello@alexrivera.dev',
-  github: '#',
-  linkedin: '#',
-  x: '#',
+  email: 'ntrofimov@ntrofimov.dev',
+  heroImage: {
+    src: heroImageSrc,
+    alt: 'Abstract hero image',
+  },
+  github: 'https://github.com/sakuraaah',
+  linkedin: 'https://www.linkedin.com/in/ntrofimovv/',
 };
