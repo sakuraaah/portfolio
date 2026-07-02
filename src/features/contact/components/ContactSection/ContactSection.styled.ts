@@ -4,7 +4,8 @@ import { Text, Title } from '@mantine/core';
 import { motion } from 'motion/react';
 import styled from 'styled-components';
 
-import { CtaAnchor, PageWrap, revealMotionProps } from '@/shared/styles';
+import { PageWrap, revealMotionProps } from '@/shared/styles';
+import { CtaAnchor } from '@/shared/ui';
 
 type StyledMantineProps = PropsWithChildren<Record<string, unknown>>;
 

@@ -1,4 +1,5 @@
 export * from './ChipList';
+export * from './CtaLink';
 export * from './Eyebrow';
 export * from './Fact';
 export * from './IconCircleButton';

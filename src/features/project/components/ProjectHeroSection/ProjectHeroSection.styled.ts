@@ -5,10 +5,10 @@ import styled from 'styled-components';
 
 import {
   type AnimationPreset,
-  CtaRouterLink,
   PageWrap,
   animationStyles,
 } from '@/shared/styles';
+import { CtaRouterLink } from '@/shared/ui';
 
 type AnimationProps = {
   $animation?: AnimationPreset;

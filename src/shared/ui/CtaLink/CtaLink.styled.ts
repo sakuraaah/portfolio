@@ -2,7 +2,7 @@ import { IconArrowLeft, IconArrowRight } from '@tabler/icons-react';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-import { type AnimationPreset, animationStyles } from './motion.styled';
+import { type AnimationPreset, animationStyles } from '@/shared/styles';
 
 type CtaProps = {
   $animation?: AnimationPreset;

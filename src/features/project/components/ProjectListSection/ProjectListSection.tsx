@@ -20,16 +20,16 @@ type ProjectListSectionProps = {
 };
 
 export function ProjectListSection({ projects }: ProjectListSectionProps) {
-  const { t } = useTranslation(I18nNamespace.Common);
+  const { t } = useTranslation(I18nNamespace.Projects);
 
   return (
     <ProjectListSectionRoot id="work">
       <SectionHeading>
         <div>
-          <Eyebrow label={t('project.list.eyebrow')} />
-          <h2>{t('project.list.title')}</h2>
+          <Eyebrow label={t('list.eyebrow')} />
+          <h2>{t('list.title')}</h2>
         </div>
-        <p>{t('project.list.copy')}</p>
+        <p>{t('list.copy')}</p>
       </SectionHeading>
 
       <ProjectList>
@@ -44,7 +44,7 @@ export function ProjectListSection({ projects }: ProjectListSectionProps) {
           <span />
           <span />
         </DotGroup>
-        <p>{t('project.list.more')}</p>
+        <p>{t('list.more')}</p>
       </NextRow>
     </ProjectListSectionRoot>
   );

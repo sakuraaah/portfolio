@@ -6,8 +6,13 @@ import { useTranslatedProject } from '@/features/project/hooks';
 import { type Project } from '@/entities/project';
 
 import { I18nNamespace } from '@/shared/i18n';
-import { BackArrow, CtaAnchor, CtaArrow, CtaRouterLink } from '@/shared/styles';
-import { MetaLine } from '@/shared/ui';
+import {
+  BackArrow,
+  CtaAnchor,
+  CtaArrow,
+  CtaRouterLink,
+  MetaLine,
+} from '@/shared/ui';
 
 import {
   ProjectActions,
@@ -23,18 +28,22 @@ type ProjectHeroSectionProps = {
 };
 
 export function ProjectHeroSection({ project }: ProjectHeroSectionProps) {
-  const { t } = useTranslation(I18nNamespace.Common);
+  const { t } = useTranslation(I18nNamespace.Projects);
   const translatedProject = useTranslatedProject(project);
 
   return (
     <ProjectHero>
       <CtaRouterLink $animation="fade" $plain to="/#work">
         <BackArrow />
-        {t('project.actions.selectedWork')}
+        {t('actions.selectedWork')}
       </CtaRouterLink>
 
       <ProjectMeta $animation="fadeDelay">
-        <MetaLine year={project.year} type={translatedProject.type} />
+        <MetaLine
+          status={t('status.latestProject')}
+          year={project.year}
+          type={translatedProject.type}
+        />
       </ProjectMeta>
 
       <ProjectTitle $animation="rise1">{translatedProject.title}</ProjectTitle>
@@ -46,7 +55,7 @@ export function ProjectHeroSection({ project }: ProjectHeroSectionProps) {
       <ProjectActions $animation="rise3">
         {project.link && (
           <CtaAnchor href={project.link}>
-            {t('project.actions.visitProject')}
+            {t('actions.visitProject')}
             <CtaArrow />
           </CtaAnchor>
         )}
@@ -54,7 +63,7 @@ export function ProjectHeroSection({ project }: ProjectHeroSectionProps) {
         {project.github && (
           <ProjectSourceLink href={project.github}>
             <IconBrandGithub aria-hidden="true" />
-            {t('project.actions.source')}
+            {t('actions.source')}
           </ProjectSourceLink>
         )}
       </ProjectActions>

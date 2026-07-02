@@ -2,8 +2,7 @@ import { Trans, useTranslation } from 'react-i18next';
 
 import { profile } from '@/shared/constants';
 import { I18nNamespace } from '@/shared/i18n';
-import { CtaAnchor, CtaArrow } from '@/shared/styles';
-import { Eyebrow, ImagePanel, SocialLinks } from '@/shared/ui';
+import { CtaAnchor, CtaArrow, Eyebrow, ImagePanel, SocialLinks } from '@/shared/ui';
 
 import {
   HeroActions,

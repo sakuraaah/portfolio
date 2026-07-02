@@ -5,8 +5,7 @@ import { useTranslatedProject } from '@/features/project/hooks';
 import { type Project } from '@/entities/project';
 
 import { I18nNamespace } from '@/shared/i18n';
-import { CtaAnchor, CtaArrow } from '@/shared/styles';
-import { ChipList, Fact, FactLabel, ImagePanel } from '@/shared/ui';
+import { CtaAnchor, CtaArrow, ChipList, Fact, FactLabel, ImagePanel } from '@/shared/ui';
 
 import {
   FactLinks,
@@ -25,7 +24,7 @@ type ProjectBodySectionProps = {
 };
 
 export function ProjectBodySection({ project }: ProjectBodySectionProps) {
-  const { t } = useTranslation(I18nNamespace.Common);
+  const { t } = useTranslation(I18nNamespace.Projects);
   const translatedProject = useTranslatedProject(project);
   const hasOverview = Boolean(translatedProject.overview?.length);
   const hasHighlights = Boolean(translatedProject.highlights?.length);
@@ -35,29 +34,29 @@ export function ProjectBodySection({ project }: ProjectBodySectionProps) {
     <ProjectBodySectionRoot>
       <ProjectBodyGrid>
         <Facts>
-          <Fact label={t('project.body.facts.year')} value={project.year} />
+          <Fact label={t('body.facts.year')} value={project.year} />
 
           <Fact
-            label={t('project.body.facts.role')}
+            label={t('body.facts.role')}
             value={translatedProject.role}
           />
 
           <div>
-            <FactLabel>{t('project.body.facts.stack')}</FactLabel>
+            <FactLabel>{t('body.facts.stack')}</FactLabel>
             <ChipList items={translatedProject.stack} />
           </div>
 
           <FactLinks>
             {project.link && (
               <CtaAnchor $plain href={project.link}>
-                {t('project.actions.visitProject')}
+                {t('actions.visitProject')}
                 <CtaArrow />
               </CtaAnchor>
             )}
 
             {project.github && (
               <CtaAnchor $muted $plain href={project.github}>
-                {t('project.actions.viewSource')}
+                {t('actions.viewSource')}
                 <CtaArrow />
               </CtaAnchor>
             )}
@@ -67,7 +66,7 @@ export function ProjectBodySection({ project }: ProjectBodySectionProps) {
         <Writeup>
           {hasOverview && (
             <WriteupArticle>
-              <h2>{t('project.body.overview')}</h2>
+              <h2>{t('body.overview')}</h2>
               {translatedProject.overview?.map((paragraph) => (
                 <p key={paragraph}>{paragraph}</p>
               ))}
@@ -76,7 +75,7 @@ export function ProjectBodySection({ project }: ProjectBodySectionProps) {
 
           {hasHighlights && (
             <HighlightBlock $withoutTopOffset={!hasOverview}>
-              <h2>{t('project.body.highlights')}</h2>
+              <h2>{t('body.highlights')}</h2>
               <HighlightList>
                 {translatedProject.highlights?.map((highlight) => (
                   <li key={highlight}>

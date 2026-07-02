@@ -6,8 +6,7 @@ import { useTranslatedProject } from '@/features/project/hooks';
 import { type Project } from '@/entities/project';
 
 import { I18nNamespace } from '@/shared/i18n';
-import { CtaArrow, CtaRouterLink } from '@/shared/styles';
-import { ChipList, ImagePanel, MetaLine } from '@/shared/ui';
+import { CtaArrow, CtaRouterLink, ChipList, ImagePanel, MetaLine } from '@/shared/ui';
 
 import {
   ProjectCardActions,
@@ -23,7 +22,7 @@ type ProjectCardProps = {
 };
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const { t } = useTranslation(I18nNamespace.Common);
+  const { t } = useTranslation(I18nNamespace.Projects);
   const translatedProject = useTranslatedProject(project);
 
   return (
@@ -32,7 +31,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
       <ProjectCardBody>
         {project.latest && (
-          <MetaLine year={project.year} type={translatedProject.type} />
+          <MetaLine
+            status={t('status.latestProject')}
+            year={project.year}
+            type={translatedProject.type}
+          />
         )}
 
         <ProjectCardTitle>
@@ -47,14 +50,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
 
         <ProjectCardActions>
           <CtaRouterLink to={`/${project.id}`}>
-            {t('project.actions.viewProject')}
+            {t('actions.viewProject')}
             <CtaArrow />
           </CtaRouterLink>
 
           {project.github && (
             <ProjectCardSourceLink href={project.github}>
               <IconBrandGithub aria-hidden="true" />
-              {t('project.actions.source')}
+              {t('actions.source')}
             </ProjectCardSourceLink>
           )}
         </ProjectCardActions>

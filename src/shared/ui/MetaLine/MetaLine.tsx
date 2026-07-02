@@ -6,16 +6,12 @@ import {
 } from './MetaLine.styled';
 
 type MetaLineProps = {
-  status?: string;
+  status: string;
   type: string;
   year: string;
 };
 
-export function MetaLine({
-  status = 'Latest project',
-  type,
-  year,
-}: MetaLineProps) {
+export function MetaLine({ status, type, year }: MetaLineProps) {
   return (
     <MetaLineRoot>
       <StatusPill>
