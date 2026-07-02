@@ -12,6 +12,16 @@ type SiteShellProps = {
   profileName: string;
 };
 
+function getHashTargetId(hash: string) {
+  const rawId = hash.slice(1);
+
+  try {
+    return decodeURIComponent(rawId);
+  } catch {
+    return rawId;
+  }
+}
+
 export function SiteShell({ profileName }: SiteShellProps) {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
@@ -19,7 +29,10 @@ export function SiteShell({ profileName }: SiteShellProps) {
   useEffect(() => {
     if (location.hash) {
       requestAnimationFrame(() => {
-        document.querySelector(location.hash)?.scrollIntoView();
+        const targetId = getHashTargetId(location.hash);
+        const targetElement = document.getElementById(targetId);
+
+        targetElement?.scrollIntoView();
       });
       return;
     }
