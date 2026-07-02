@@ -1,10 +1,10 @@
+import type { ReactElement } from 'react';
+
 import {
   IconBrandGithub,
   IconBrandLinkedin,
   IconBrandX,
 } from '@tabler/icons-react';
-
-import { profile } from '@/shared/constants';
 
 import {
   SocialLink,
@@ -12,41 +12,66 @@ import {
   SocialLinksRoot,
 } from './SocialLinks.styled';
 
+type SocialLinksValue = {
+  github?: string;
+  linkedin?: string;
+  x?: string;
+};
+
+type SocialLinkItem = {
+  href?: string;
+  icon: ReactElement;
+  label: string;
+};
+
+type VisibleSocialLinkItem = SocialLinkItem & {
+  href: string;
+};
+
 type SocialLinksProps = {
+  links: SocialLinksValue;
   size: SocialLinkSize;
 };
 
-export function SocialLinks({ size }: SocialLinksProps) {
-  const links = [
+function isVisibleSocialLink(
+  link: SocialLinkItem
+): link is VisibleSocialLinkItem {
+  return Boolean(link.href);
+}
+
+export function SocialLinks({ links, size }: SocialLinksProps) {
+  const visibleLinks = [
     {
-      href: profile.github,
+      href: links.github,
       icon: <IconBrandGithub aria-hidden="true" />,
       label: 'GitHub',
     },
     {
-      href: profile.linkedin,
+      href: links.linkedin,
       icon: <IconBrandLinkedin aria-hidden="true" />,
       label: 'LinkedIn',
     },
     {
-      href: profile.x,
+      href: links.x,
       icon: <IconBrandX aria-hidden="true" />,
       label: 'X',
     },
-  ].filter((link) => Boolean(link.href));
+  ].filter(isVisibleSocialLink);
 
-  if (!links.length) {
+  if (!visibleLinks.length) {
     return null;
   }
 
   return (
     <SocialLinksRoot $size={size}>
-      {links.map((link) => (
+      {visibleLinks.map((link) => (
         <SocialLink
           $size={size}
           aria-label={link.label}
           href={link.href}
           key={link.label}
+          rel="noreferrer"
+          target="_blank"
         >
           {link.icon}
         </SocialLink>

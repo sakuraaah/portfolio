@@ -31,7 +31,7 @@ export function ContactSection() {
           {profile.email}
           <CtaArrow />
         </EmailLink>
-        <SocialLinks size="lg" />
+        <SocialLinks links={profile} size="lg" />
       </ContactCard>
     </ContactSectionRoot>
   );

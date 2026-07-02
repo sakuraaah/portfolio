@@ -37,7 +37,7 @@ export function HeroSection() {
               {t('hero.cta.work')}
               <CtaArrow />
             </CtaAnchor>
-            <SocialLinks size="sm" />
+            <SocialLinks links={profile} size="sm" />
           </HeroActions>
         </div>
         <ImagePanel
