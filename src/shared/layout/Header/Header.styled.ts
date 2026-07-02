@@ -50,6 +50,8 @@ export const HeaderNavLink = styled(StyledLink)``;
 
 export const ThemePillButton = styled(Button)`
   gap: 8px;
+  inline-size: 100px;
+  flex: 0 0 100px;
   height: 38px;
   padding: 0 15px 0 13px;
   border: 1px solid var(--border);
