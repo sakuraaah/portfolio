@@ -1,4 +1,4 @@
-import { Button, Group } from '@mantine/core';
+import { Group } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -48,38 +48,11 @@ export const HeaderNav = styled(Group)`
 
 export const HeaderNavLink = styled(StyledLink)``;
 
-export const ThemePillButton = styled(Button)`
-  gap: 8px;
+export const ThemePillButton = styled(IconCircleButton).attrs({
+  $shape: 'pill',
+})`
   inline-size: 100px;
   flex: 0 0 100px;
-  height: 38px;
-  padding: 0 15px 0 13px;
-  border: 1px solid var(--border);
-  border-radius: 100px;
-  color: var(--text-2);
-  background: transparent;
-  cursor: pointer;
-  font-size: 13.5px;
-  font-weight: 500;
-  --button-hover: transparent;
-  transition:
-    border-color 250ms ease,
-    color 250ms ease;
-
-  &:hover,
-  &:focus-visible {
-    color: var(--accent);
-    border-color: var(--accent);
-  }
-
-  .mantine-Button-inner {
-    gap: 8px;
-  }
-
-  .mantine-Button-section {
-    font-size: 15px;
-    line-height: 1;
-  }
 `;
 
 export const MenuButton = styled(IconCircleButton)`

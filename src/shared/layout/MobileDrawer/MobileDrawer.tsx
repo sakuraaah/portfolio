@@ -114,6 +114,9 @@ export function MobileDrawer({
                   aria-label={t('theme.optionLabel', {
                     theme: preferenceLabel,
                   })}
+                  data-active={
+                    themePreference === preference ? 'true' : undefined
+                  }
                   data-val={preference}
                   key={preference}
                   type="button"

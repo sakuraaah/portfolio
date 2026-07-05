@@ -91,7 +91,6 @@ export const ThemeDotButton = styled(IconCircleButton)`
   width: 48px;
   height: 48px;
   min-width: 48px;
-  padding: 0;
   font-size: 17px;
   line-height: 1;
   transition:
@@ -103,17 +102,6 @@ export const ThemeDotButton = styled(IconCircleButton)`
 
   &:hover,
   &:focus-visible {
-    color: var(--accent);
-    border-color: var(--accent);
     transform: translateY(-2px);
-  }
-
-  html[data-themepref='light'] &[data-val='light'],
-  html[data-themepref='dark'] &[data-val='dark'],
-  html[data-themepref='system'] &[data-val='system'] {
-    color: var(--accent-contrast);
-    border-color: var(--accent);
-    background: var(--accent);
-    box-shadow: var(--sh-md);
   }
 `;
