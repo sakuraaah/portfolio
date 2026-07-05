@@ -1,7 +1,7 @@
 export const enCommon = {
   footer: {
     backToTop: 'Back to top',
-    credit: '© 2026, Built and maintained by hand.',
+    credit: '© 2026, Built and maintained by author.',
   },
   menu: {
     appearance: 'Appearance',
