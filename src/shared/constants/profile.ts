@@ -1,6 +1,6 @@
 import type { Profile } from '@/entities/profile';
 
-import heroImageSrc from '@/assets/hero.jpg';
+import heroImageSrc from '@/assets/hero.webp';
 
 export const profile: Profile = {
   name: 'Nikita Trofimov',
