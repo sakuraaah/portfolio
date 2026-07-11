@@ -8,3 +8,4 @@ export * from './MetaLine';
 export * from './PageContainer';
 export * from './SocialLinks';
 export * from './StyledLink';
+export * from './PageSkeleton';
