@@ -1,4 +1,4 @@
-import { type ReactNode, Suspense } from 'react';
+import { Suspense } from 'react';
 
 import type { RouteObject } from 'react-router-dom';
 
@@ -6,11 +6,7 @@ import { LazyHomePage, LazyProjectPage } from '@/pages/lazy';
 
 import { profile, projects } from '@/shared/constants';
 import { SiteShell } from '@/shared/layout';
-import { PageSkeleton } from '@/shared/ui';
-
-function withPageSuspense(element: ReactNode) {
-  return <Suspense fallback={<PageSkeleton />}>{element}</Suspense>;
-}
+import { HomeSkeleton, ProjectSkeleton } from '@/shared/ui';
 
 export const appRoutes = [
   {
@@ -18,11 +14,19 @@ export const appRoutes = [
     children: [
       {
         index: true,
-        element: withPageSuspense(<LazyHomePage />),
+        element: (
+          <Suspense fallback={<HomeSkeleton />}>
+            <LazyHomePage />
+          </Suspense>
+        ),
       },
       ...projects.map((project) => ({
         path: project.id,
-        element: withPageSuspense(<LazyProjectPage project={project} />),
+        element: (
+          <Suspense fallback={<ProjectSkeleton />}>
+            <LazyProjectPage project={project} />
+          </Suspense>
+        ),
       })),
     ],
   },
