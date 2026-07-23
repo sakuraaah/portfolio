@@ -3,6 +3,7 @@ import type { Project } from '@/entities/project';
 import ruslanGalleryImage1Src from '@/assets/ruslan-gallery-1.jpg';
 import ruslanGalleryImage2Src from '@/assets/ruslan-gallery-2.jpg';
 import ruslanGalleryImage3Src from '@/assets/ruslan-gallery-3.jpg';
+import ruslanGalleryImage4Src from '@/assets/ruslan-gallery-4.jpg';
 import ruslanMainImageSrc from '@/assets/ruslan-main.jpg';
 import testprojGalleryImage1Src from '@/assets/testproj-gallery-1.jpg';
 import testprojGalleryImage2Src from '@/assets/testproj-gallery-2.jpg';
@@ -64,6 +65,10 @@ export const projects: Project[] = [
       },
       {
         src: ruslanGalleryImage3Src,
+        alt: 'Руслан и пицца',
+      },
+      {
+        src: ruslanGalleryImage4Src,
         alt: 'Тики тики тики (Руслан)',
         imageProps: {
           style: {
