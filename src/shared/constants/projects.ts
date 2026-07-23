@@ -1,5 +1,9 @@
 import type { Project } from '@/entities/project';
 
+import ruslanGalleryImage1Src from '@/assets/ruslan-gallery-1.jpg';
+import ruslanGalleryImage2Src from '@/assets/ruslan-gallery-2.jpg';
+import ruslanGalleryImage3Src from '@/assets/ruslan-gallery-3.jpg';
+import ruslanMainImageSrc from '@/assets/ruslan-main.jpg';
 import testprojGalleryImage1Src from '@/assets/testproj-gallery-1.jpg';
 import testprojGalleryImage2Src from '@/assets/testproj-gallery-2.jpg';
 import testprojGalleryImage3Src from '@/assets/testproj-gallery-3.jpg';
@@ -35,5 +39,38 @@ export const projects: Project[] = [
       },
     ],
     github: 'https://github.com/sakuraaah/gravity-rift',
+  },
+  {
+    id: 'puslan-runtus',
+    year: '2002',
+    stack: ['Именно', 'Цинус', 'Вайб'],
+    mainImage: {
+      src: ruslanMainImageSrc,
+      alt: 'Руслан с друзьями',
+      imageProps: {
+        style: {
+          objectFit: 'contain',
+        },
+      },
+    },
+    galleryImages: [
+      {
+        src: ruslanGalleryImage1Src,
+        alt: 'Руслан косплеит идола',
+      },
+      {
+        src: ruslanGalleryImage2Src,
+        alt: 'Руслан и спорт',
+      },
+      {
+        src: ruslanGalleryImage3Src,
+        alt: 'Тики тики тики (Руслан)',
+        imageProps: {
+          style: {
+            objectFit: 'contain',
+          },
+        },
+      },
+    ],
   },
 ];
