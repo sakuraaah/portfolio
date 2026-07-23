@@ -6,7 +6,7 @@ import {
 } from './MetaLine.styled';
 
 type MetaLineProps = {
-  status: string;
+  status?: string;
   type: string;
   year: string;
 };
@@ -14,10 +14,12 @@ type MetaLineProps = {
 export function MetaLine({ status, type, year }: MetaLineProps) {
   return (
     <MetaLineRoot>
-      <StatusPill>
-        <StatusDot aria-hidden="true" />
-        {status}
-      </StatusPill>
+      {status && (
+        <StatusPill>
+          <StatusDot aria-hidden="true" />
+          {status}
+        </StatusPill>
+      )}
       <MetaDate>
         {year} &middot; {type}
       </MetaDate>

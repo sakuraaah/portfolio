@@ -40,7 +40,7 @@ export function ProjectHeroSection({ project }: ProjectHeroSectionProps) {
 
       <ProjectMeta $animation="fadeDelay">
         <MetaLine
-          status={t('status.latestProject')}
+          status={project.latest ? t('status.latestProject') : undefined}
           year={project.year}
           type={translatedProject.type}
         />
