@@ -16,7 +16,7 @@ type ImagePanelProps = {
 export function ImagePanel({ animation, image, variant }: ImagePanelProps) {
   return (
     <ImagePanelRoot $animation={animation} $variant={variant}>
-      <ImagePanelImage alt={image.alt} src={image.src} />
+      <ImagePanelImage {...image.imageProps} alt={image.alt} src={image.src} />
     </ImagePanelRoot>
   );
 }
