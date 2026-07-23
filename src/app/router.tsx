@@ -2,7 +2,7 @@ import { Suspense } from 'react';
 
 import type { RouteObject } from 'react-router-dom';
 
-import { LazyHomePage, LazyProjectPage } from '@/pages/lazy';
+import { LazyHomePage, LazyNotFoundPage, LazyProjectPage } from '@/pages/lazy';
 
 import { profile, projects } from '@/shared/constants';
 import { SiteShell } from '@/shared/layout';
@@ -28,6 +28,14 @@ export const appRoutes = [
           </Suspense>
         ),
       })),
+      {
+        path: '*',
+        element: (
+          <Suspense fallback={<HomeSkeleton />}>
+            <LazyNotFoundPage />
+          </Suspense>
+        ),
+      },
     ],
   },
 ] satisfies RouteObject[];

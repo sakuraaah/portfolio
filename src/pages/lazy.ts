@@ -9,3 +9,9 @@ export const LazyProjectPage = lazy(() =>
     default: module.ProjectPage,
   }))
 );
+
+export const LazyNotFoundPage = lazy(() =>
+  import('./NotFoundPage').then((module) => ({
+    default: module.NotFoundPage,
+  }))
+);
