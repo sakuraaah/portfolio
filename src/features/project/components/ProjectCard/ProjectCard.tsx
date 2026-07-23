@@ -12,13 +12,13 @@ import {
   CtaRouterLink,
   ImagePanel,
   MetaLine,
+  SourceLink,
 } from '@/shared/ui';
 
 import {
   ProjectCardActions,
   ProjectCardBody,
   ProjectCardRoot,
-  ProjectCardSourceLink,
   ProjectCardTitle,
   ProjectCardTitleLink,
 } from './ProjectCard.styled';
@@ -61,10 +61,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </CtaRouterLink>
 
           {project.github && (
-            <ProjectCardSourceLink href={project.github}>
+            <SourceLink href={project.github}>
               <IconBrandGithub aria-hidden="true" />
               {t('actions.source')}
-            </ProjectCardSourceLink>
+            </SourceLink>
           )}
         </ProjectCardActions>
       </ProjectCardBody>

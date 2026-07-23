@@ -1,16 +1,8 @@
-import type { ComponentType, PropsWithChildren } from 'react';
-
-import { Text, Title } from '@mantine/core';
 import { motion } from 'motion/react';
 import styled from 'styled-components';
 
 import { PageWrap, revealMotionProps } from '@/shared/styles';
-import { CtaAnchor } from '@/shared/ui';
-
-type StyledMantineProps = PropsWithChildren<Record<string, unknown>>;
-
-const StyledText = Text as unknown as ComponentType<StyledMantineProps>;
-const StyledTitle = Title as unknown as ComponentType<StyledMantineProps>;
+import { CtaAnchor, DisplayTitle, LeadText } from '@/shared/ui';
 
 export const ContactSectionRoot = styled(PageWrap)`
   padding-block: 120px;
@@ -26,30 +18,19 @@ export const ContactCard = styled(motion.div).attrs(revealMotionProps)`
   text-align: center;
 `;
 
-export const ContactTitle = styled(StyledTitle).attrs({ order: 2 })`
+export const ContactTitle = styled(DisplayTitle).attrs({ order: 2 })`
   margin: 0 0 24px;
-  color: var(--text);
-  font-family: var(--serif);
   font-size: 56px;
-  font-weight: 400;
-  line-height: 1.04;
-  letter-spacing: -0.02em;
-
-  em {
-    color: var(--accent);
-    font-style: italic;
-  }
 
   @media (max-width: 880px) {
     font-size: 42px;
   }
 `;
 
-export const ContactCopy = styled(StyledText)`
+export const ContactCopy = styled(LeadText)`
+  max-width: none;
   margin: 0 0 40px;
-  color: var(--text-2);
   font-size: 17px;
-  line-height: 1.6;
 `;
 
 export const EmailLink = styled(CtaAnchor)`

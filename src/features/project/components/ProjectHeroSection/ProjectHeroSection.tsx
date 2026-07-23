@@ -12,6 +12,7 @@ import {
   CtaArrow,
   CtaRouterLink,
   MetaLine,
+  SourceLink,
 } from '@/shared/ui';
 
 import {
@@ -19,7 +20,6 @@ import {
   ProjectDescription,
   ProjectHero,
   ProjectMeta,
-  ProjectSourceLink,
   ProjectTitle,
 } from './ProjectHeroSection.styled';
 
@@ -61,10 +61,10 @@ export function ProjectHeroSection({ project }: ProjectHeroSectionProps) {
         )}
 
         {project.github && (
-          <ProjectSourceLink href={project.github}>
+          <SourceLink href={project.github}>
             <IconBrandGithub aria-hidden="true" />
             {t('actions.source')}
-          </ProjectSourceLink>
+          </SourceLink>
         )}
       </ProjectActions>
     </ProjectHero>

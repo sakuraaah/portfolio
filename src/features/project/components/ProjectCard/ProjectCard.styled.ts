@@ -1,11 +1,12 @@
 import type { ComponentType, PropsWithChildren } from 'react';
 
-import { Anchor, Box, Group, Stack, Title } from '@mantine/core';
+import { Anchor, Box, Stack, Title } from '@mantine/core';
 import { motion } from 'motion/react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { revealHoverMotionProps } from '@/shared/styles';
+import { headingStyles, revealHoverMotionProps } from '@/shared/styles';
+import { ActionGroup } from '@/shared/ui';
 
 type RouterAnchorProps = PropsWithChildren<{
   component?: typeof Link;
@@ -55,12 +56,10 @@ export const ProjectCardBody = styled(Stack)`
 `;
 
 export const ProjectCardTitle = styled(Title).attrs({ order: 3 })`
+  ${headingStyles}
   margin: 0 0 16px;
-  font-family: var(--serif);
   font-size: 34px;
-  font-weight: 400;
   line-height: 1.08;
-  letter-spacing: -0.02em;
 
   @media (max-width: 560px) {
     font-size: 30px;
@@ -96,38 +95,8 @@ export const ProjectCardTitleLink = styled(RouterAnchor).attrs({
   }
 `;
 
-export const ProjectCardActions = styled(Group)`
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 28px;
-  margin-top: auto;
-
-  @media (max-width: 560px) {
-    align-items: flex-start;
-    flex-direction: column;
-  }
-`;
-
-export const ProjectCardSourceLink = styled(Anchor).attrs({
-  underline: 'never',
+export const ProjectCardActions = styled(ActionGroup).attrs({
+  $stackOnMobile: true,
 })`
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: var(--text-3);
-  font-size: 14.5px;
-  font-weight: 500;
-  text-decoration: none;
-  transition: color 250ms ease;
-
-  svg {
-    width: 16px;
-    height: 16px;
-  }
-
-  &:hover,
-  &:focus-visible {
-    color: var(--text);
-  }
+  margin-top: auto;
 `;

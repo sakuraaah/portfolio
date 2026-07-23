@@ -1,8 +1,9 @@
-import { Box, Group } from '@mantine/core';
+import { Box } from '@mantine/core';
 import { motion } from 'motion/react';
 import styled from 'styled-components';
 
 import { headingStyles, revealMotionProps } from '@/shared/styles';
+import { ActionGroup } from '@/shared/ui';
 
 export const MoreSection = styled(Box).attrs({ component: 'section' })`
   border-top: 1px solid var(--border);
@@ -35,15 +36,12 @@ export const MoreInner = styled(Box).attrs({
   }
 `;
 
-export const MoreActions = styled(Group)`
-  display: flex;
-  align-items: center;
+export const MoreActions = styled(ActionGroup).attrs({
+  $stackOnMobile: true,
+})`
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 28px;
 
   @media (max-width: 560px) {
-    align-items: flex-start;
-    flex-direction: column;
+    justify-content: flex-start;
   }
 `;
